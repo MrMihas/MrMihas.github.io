@@ -1,0 +1,172 @@
+<html lang="en"><head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<link rel="stylesheet" href="css/style.css">
+
+    <style>
+        .wrap{
+	width: 200px;
+  background: #222;
+ display: block;
+ text-align: center;
+ position: absolute;
+
+}
+p{
+	color:#fff;
+	
+}
+
+canvas{
+	margin-left: 20px;
+}
+
+
+    </style>
+</head>
+<body>
+	
+
+<div class="wrap">
+<p>До кемпа осталось:</p>
+
+<canvas id="countdown-timer" width="200" height="120"></canvas>
+</div>
+<script src="js/active.js"></script>
+
+</body>
+
+<script>
+
+var canvas = document.getElementById('countdown-timer');
+
+var Timer = (function() {
+  var ctx = null,
+    init = null,
+    draw = null,
+    go = null;
+  var param = {
+    countdownTo: '2021/01/01', 
+    ringWidth: 100, 
+    ringHeight: 100, 
+    padding: 4,
+    radius: 50, 
+    lineWidth: 4, 
+    updateInterval: 20, 
+    numberText: {
+      fontsize: 40,
+      color: '#FCF'
+    }, 
+    unitText: {
+      fontsize: 16,
+      color: '#0FF'
+    }, 
+    circleOuterColor: 'rgba(0, 255, 0, 1)', 
+    circleInnerColor: 'rgba(0, 128, 0, 0.4)',
+    rings: {
+      "DAYS": {
+        max: 365,
+        ms: 86400000
+      },
+      "HOURS": {
+        max: 24,
+        ms: 3600000
+      },
+      "MINS": {
+        max: 60,
+        ms: 60000
+      },
+      "SECS": {
+        max: 60,
+        ms: 1000
+      },
+      
+    }, 
+    time: 0 
+  };
+  //初始化設定
+  init = function(canvas) {
+      if (canvas.nodeName != 'CANVAS') {
+        return;
+      }
+      ctx = canvas.getContext('2d');
+      param.ringWidth = Math.floor(canvas.width / 5); //把canvas分5等分
+      canvas.height = param.ringHeight = param.ringWidth; //重設canvas高度 = 每等分寬度
+      param.radius = Math.floor((param.ringWidth - param.padding - param.lineWidth) / 2); //計算圓圈半徑
+      param.numberText.fontsize = Math.floor(param.ringWidth / 3) //計算數字字體大小
+      param.unitText.fontsize = Math.floor(param.ringWidth / 9) //計算文字字體大小
+
+      ctx.textAlign = "center"; //所有canvas中的Text都置中顯示
+    }
+    //畫圓圈
+  draw = function(index, text, data) {
+      var cx = param.ringWidth * 0.5,
+        cy = param.ringHeight * 0.5,
+        number = param.time / data.ms;
+      deg = 1 - number / data.max;
+
+      param.time -= Math.floor(number) * data.ms;
+
+      ctx.save();
+
+      ctx.translate(param.ringWidth * index, 0);
+      ctx.clearRect(0, 0, param.ringWidth, param.ringHeight);
+
+      ctx.translate(cx, cy); //canvas中心座標移到圓心
+
+      //畫背景圓圈
+      ctx.strokeStyle = param.circleInnerColor;
+      ctx.beginPath();
+      ctx.arc(0, 0, param.radius, 0, 2 * Math.PI, true);
+      ctx.lineWidth = param.lineWidth;
+      ctx.stroke();
+
+      //外圈
+      ctx.strokeStyle = param.circleOuterColor;
+      ctx.beginPath();
+      ctx.arc(0, 0, param.radius, 0, deg * 2 * Math.PI, true);
+
+      ctx.stroke();
+
+      //文字
+
+      ctx.font = param.unitText.fontsize + "pt Helvetica";
+      ctx.fillStyle = param.unitText.color;
+      ctx.fillText(text, 0, param.unitText.fontsize * 2.5);
+      //數字
+      ctx.fillStyle = param.numberText.color;
+      ctx.font = "bold " + param.numberText.fontsize + "pt Helvetica";
+      ctx.fillText(Math.floor(number), 0, param.numberText.fontsize / 4);
+
+      ctx.restore();
+    }
+    //開始運作
+  go = function() {
+    var index = 0,
+      countdownToTime = new Date(param.countdownTo).getTime();
+
+    param.time = countdownToTime - new Date().getTime();
+    param.time = param.time > 0 ? param.time : 0;
+
+   
+    for (var key in param.rings) {
+      draw(index++, key, param.rings[key]);
+    }
+
+   
+    setTimeout(go, param.updateInterval);
+  }
+
+  return {
+    init: init,
+    go: go
+  };
+
+}())
+
+Timer.init(canvas);
+Timer.go();
+
+
+</script>
+</html>

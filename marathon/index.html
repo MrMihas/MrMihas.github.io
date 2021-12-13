@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>МІЙ МАРАФОН</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        
+
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <table id="calendar">
+            <thead>
+                <tr>
+                    <th>Пн</th>
+                    <th>Вт</th>
+                    <th>Ср</th>
+                    <th>Чт</th>
+                    <th>Пт</th>
+                    <th>Сб</th>
+                    <th>Нд</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+
+
+        <section class="header center">
+
+            <p class="startM none"></p>
+             <div class="day-end"></div>    
+        <div class="title"></div>
+           
+            
+
+        </section>
+
+        <input type="submit" class="btn-rem none">
+
+
+<p class="ending none">— закінчити достроково</p>
+
+
+<div class="div"></div>
+
+
+        <div class="form-container">
+            <form >
+                <input type="text" maxlength="20" class="name" placeholder="Назва марафону">
+                <input type="number" class='days' min="1" max="100" placeholder="Кількість днів">
+                <input type="hidden" class="date" >
+                <button class="submit">Запустити</button>
+                <p class="out"></p>
+            </form>
+        </div>
+
+
+
+    </div>
+    
+
+
+
+
+
+    <script src="./action.js"></script>
+</body>
+</html>
+

@@ -1,0 +1,300 @@
+.tab {
+    overflow: hidden;
+    position: relative;
+    
+    
+}
+
+/* Style the buttons inside the tab */
+.tablinks {
+    background-color: inherit;
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 14px 12px;
+    transition: 0.3s;
+    font-size: 18px;
+    color:#555;
+
+
+}
+
+.tablinks:hover{
+	color:  #0051d8!important;
+}
+
+.active{
+	color:  #0051d8!important;
+}
+
+/* Change background color of buttons on hover */
+
+.tablinks:after{
+content:'';
+width:100%;
+height:2px;
+display:block;
+background: #0051d8;
+	transform-origin: right right;
+	transition:.5s;
+transform:translateY(14px);
+opacity:0;
+}
+
+
+.tablinks:hover{
+	color:  #0051d8;
+	display: block;
+
+}
+
+/* Change background color of buttons on hover */
+.tab a:hover:after {
+	transition:.5s;
+ transform:translateY(14px);
+opacity:1;
+}
+
+.tab a.active:after{
+content:'';
+width:100%;
+height:2px;
+display:block;
+background: #0051d8;
+transform:translateY(14px);
+	opacity:1;
+
+}
+
+/* Create an active/current tablink class */
+
+/* Style the tab content */
+
+
+.tabcontent {
+    width: 100%;
+height: 100%;
+    display: none;
+    position: relative;
+     background: #fafafa;
+  
+   }
+
+
+
+.tab-pane{
+    color:#000 !important;
+    padding: 10px;
+}
+
+#collapseTwo .card-body{
+    display: -webkit-flex;
+    display: -moz-flex;
+    display: -ms-flex;
+    display: -o-flex;
+    display: flex;
+    
+}
+
+#collapseTwo .card-body img{
+    padding-left: 20px;
+}
+
+
+
+.tab-content>.active{
+    padding-left: 1rem;
+   
+   
+}
+
+.card-header{
+    padding: 0!important; 
+   display: -webkit-flex;
+   display: -moz-flex;
+   display: -ms-flex;
+   display: -o-flex;
+   display: flex;
+    justify-content: center;
+    -ms-align-items: center;
+    align-items: center;
+    font-family: 'Roboto', sans-serif;
+}
+
+.card-header:hover{
+    background: #f2f2f2;
+}
+
+.card-body{
+    display: -webkit-flex;
+    display: -moz-flex;
+    display: -ms-flex;
+    display: -o-flex;
+    display: flex;
+    justify-content: center;
+    -ms-align-items: center;
+    align-items: center;
+    background: #fff;
+    font-family: 'Montserrat', sans-serif;
+}
+
+
+.btn-link{
+    width: 100%!important;
+    height: 100%!important;
+    font-family: 'Montserrat', sans-serif!important;
+    font-weight: 600!important;
+    font-size: 22px;
+    
+
+}
+
+.btn:hover{
+    text-decoration: none!important;
+}
+
+
+
+.last_tab{
+    display: block !important;
+}
+
+
+.error_1{
+    width: 100%;
+    min-height:70px;
+text-align: center;
+    border-bottom: 1px solid #666;
+    box-shadow:  0 0 8px #000;
+margin-bottom: 15px;
+}
+
+
+
+
+
+.antivirus{
+    width: 250px;
+    height: 250px;
+    background-repeat: no-repeat;
+    -webkit-background-size: contain;
+    background-size: contain;
+    background-position: center center;
+    margin-left: 20px;
+}
+
+.eset{
+background-image: url(../img/eset-logo.png);
+}
+
+
+.unhack{
+background-image: url(../img/unhackme.jpeg);
+}
+
+
+
+
+
+
+.setup_p span{
+    color: #0051d8;
+    font-weight: 600;
+    font-family: 'Montserrat';
+    font-size: 22px;
+    transition:  .5s;
+    overflow: hidden;
+}
+
+.setup_p p{
+    color: #555;
+    font-size: 18px;
+    transition:  .5s;
+    overflow: hidden;
+    font-family: "Helvetica", "Helvetica Neue", sans-serif;
+}
+
+.setup_p p::first-letter{
+    margin-left: 25px;
+}
+
+.mob_tab{
+    display: none;
+}
+
+
+.speedtest{
+    width: 300px;
+    height: 130px;
+    margin: 15px;
+    padding: 12px;
+    background-repeat: no-repeat;
+    -webkit-background-size: contain;
+    background-size: contain;
+    background-position: center center;
+    background-image: url(../img/speed.png);
+}
+
+.iplogo{
+    width: 120px;
+    height: 120px;
+    margin: 15px;
+    background-repeat: no-repeat;
+    -webkit-background-size: contain;
+    background-size: contain;
+    background-position: center center;
+    background-image: url(../img/2iplogo.png);
+}
+
+
+.setwind{
+    text-align: center;
+}
+
+
+
+
+
+
+
+.EasyPay1{
+    background-image: url(../img/pay/easy1.jpg);
+    } 
+    .EasyPay2
+    {
+    background-image: url(../img/pay/easy2.jpg);
+    } 
+
+     .EasyPay3{
+    background-image: url(../img/pay/easy3.jpg);
+    } 
+
+     .EasyPay4{
+    background-image: url(../img/pay/easy4.jpg);
+    } 
+
+
+.non1{
+    background-image: url(../img/pay/non1.jpg);
+}
+.non2{
+    background-image: url(../img/pay/non2.jpg);
+}.non3{
+    background-image: url(../img/pay/non3.jpg);
+}.non4{
+    background-image: url(../img/pay/non4.jpg);
+}
+
+
+
+
+@media (max-width: 768px) {
+    .card-body{
+        -webkit-flex-direction: column;
+        -moz-flex-direction: column;
+        -ms-flex-direction: column;
+        -o-flex-direction: column;
+        flex-direction: column;
+    }
+}

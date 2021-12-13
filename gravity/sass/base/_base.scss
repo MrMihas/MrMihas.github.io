@@ -1,0 +1,24 @@
+html{
+	min-width: 320px;
+}
+
+body{
+	background: $background__white;
+	color: $color__text;
+	font-size: 18px;
+	font-family: $regular__Fira;
+
+}
+
+
+h1,h2,h3,h4,h5,h6{
+	color: $color__title;
+}
+a{
+	color: #ffffff;
+	text-decoration: none;
+}
+
+main{
+	overflow: hidden;
+}

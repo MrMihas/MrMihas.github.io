@@ -1,0 +1,42 @@
+.works__gallery{
+	a{
+		img{
+			margin-bottom: $padding__middle;
+			z-index: 20;
+			max-width: 100%;
+		}
+		&:hover{
+			transition: 0.3s;
+			img{
+				transition: 0.3s linear;
+				transform: translateY(-15px);
+				box-shadow: -30px 60px 100px rgba(0,0,0,0.25);
+			}
+		}
+	}
+
+	.gallery__more{
+		display: flex;	
+		flex-direction: column;	
+		align-items: center;
+		@include small{
+			padding-right: 15%;	
+		}
+		@include md{
+			flex-direction: row;
+			justify-content: space-between;
+		}
+
+		.info{
+			max-width: 66.66667%;
+			@include md{
+				padding-bottom: 0;	
+			}
+		}
+	}
+
+
+
+
+
+}

@@ -1,0 +1,41 @@
+.works__sort{
+
+	.sort-list{
+		display: flex;
+		flex-direction: column;
+		flex-wrap: wrap;
+
+		@include md{
+			flex-direction: row;
+			justify-content: flex-end;
+			align-items: center;	
+		}
+		@include xl{
+			flex-wrap: nowrap;
+		}
+		li>*{
+				text-transform: uppercase;
+				color: $color__text;
+				opacity: 0.3;	
+				letter-spacing: 4px;	
+				line-height: 171%;
+				transition: color 0.3s, opacity 0.4s;
+				display: inline-block;
+				margin-left: $padding__sort;
+				padding-top: $padding__sort;
+
+				@include lg{
+					padding-top: 0;
+				}
+
+				&:hover{
+					color: $color__hover;
+					opacity: 1;	
+				}
+				&.active{
+					color: $color__hover;
+					opacity: 1;	
+				}
+		}
+	}
+}

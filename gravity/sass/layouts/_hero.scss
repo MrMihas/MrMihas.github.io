@@ -1,0 +1,48 @@
+.hero{
+	position: relative;
+	margin-bottom: $padding__middle;
+	background-image: url(../images/hero__bg.png);
+	background-size: cover;
+	background-repeat: no-repeat;
+	@include lg{
+		background: transparent;
+		margin-bottom: $padding__big;
+	}
+	
+	.hero__wrap{
+		justify-content: space-between;
+		display: flex;
+
+
+	}
+
+	.general-container__img {
+		opacity: 0.5;
+		@include lg{
+			max-width: 50%;
+		}
+	}
+
+
+}
+
+.hero__left{
+	h2{
+		max-width: 536px;
+		font-style: normal;
+		font-family:$bold__Fira ;
+		font-size: 60px;
+		line-height: 117%;
+		margin: 40px 0 30px 0;	
+	}
+}
+
+.hero__info{
+	max-width: 470px;
+	line-height: 156%;
+	padding-bottom:	65px;
+	opacity: 1;
+	@include lg{
+		opacity: 0.7;
+	}
+}

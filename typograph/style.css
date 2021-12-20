@@ -31,7 +31,8 @@ header{
     padding-bottom: 3rem;
 }
 
-.block input{
+.block input, 
+.block label{
     padding: 20px 40px;
     margin-top: 1rem;
     text-transform: uppercase;
@@ -45,7 +46,8 @@ header{
     transition: background 0.3s;
 }
 
-.block input:hover{
+.block input:hover, 
+.block label:hover{
     background: #e7d5318f;
 }
 

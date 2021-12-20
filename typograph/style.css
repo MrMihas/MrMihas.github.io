@@ -50,8 +50,12 @@ header{
 }
 
 .access{
-    color: darkblue;
+    color: rgb(14, 3, 43);
     font-family: sans-serif;
+}
+.access-copy{
+    background: antiquewhite;
+    color: #000;
 }
 
 @media (min-width: 280px) {

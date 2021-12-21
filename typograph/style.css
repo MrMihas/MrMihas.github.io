@@ -54,6 +54,7 @@ header{
 .access{
     color: midnightblue;
     font-family: sans-serif;
+    font-size: 17px;
 }
 .access-copy{
     background: antiquewhite;

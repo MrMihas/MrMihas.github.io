@@ -119,7 +119,7 @@ deleteText.addEventListener('click', ()=>{
 
 
 document.onblur = function(){
-    document.title = "ЗАМЕНА"
+    document.title = "😍ЗАМЕНА😂"
 }
 
 

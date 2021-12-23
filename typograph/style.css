@@ -60,6 +60,11 @@ header{
     background: antiquewhite;
     color: #000;
 }
+.hidden{
+    opacity: 0;
+    visibility: hidden;
+}
+
 
 @media (min-width: 280px) {
     .text{

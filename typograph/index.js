@@ -89,6 +89,7 @@ function reverseSymbol2(text) {
     let checkingText = document.querySelector(".text");
     checkingText.value = result.trim();
     checkingText.classList.add('access');
+    copy.classList.remove("hidden");
 }
 
 copy.addEventListener('click', function () {
@@ -111,5 +112,17 @@ deleteText.addEventListener('click', ()=>{
         checkingText.classList.remove('access');
         checkingText.classList.remove('access-copy');
         checkingText.setAttribute('placeholder', 'Введите текст');
+        copy.classList.add("hidden");
     }
 })
+
+
+
+document.onblur = function(){
+    document.title = "ЗАМЕНА"
+}
+
+
+document.onfocus = function(){
+    document.title = "Замена прямых кавычек на елечки онлайн || Заменить кавычки";
+}

@@ -69,7 +69,7 @@ function next(text) {
     search = '\"';
     replaceWith = '»';
     result = text.replaceAll(search, replaceWith);
-    next2(text);
+    next2(result);
 }
 
 function next2(text) {

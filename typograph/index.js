@@ -69,6 +69,13 @@ function next(text) {
     search = '\"';
     replaceWith = '»';
     result = text.replaceAll(search, replaceWith);
+    next2(text);
+}
+
+function next2(text) {
+    search = '(\"';
+    replaceWith = '«';
+    result = text.replaceAll(search, replaceWith);
     reverseSymbol(result);
 }
 

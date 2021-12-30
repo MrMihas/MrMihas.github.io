@@ -73,7 +73,7 @@ function next(text) {
 }
 
 function next2(text) {
-    search = '(\"';
+    search = '("';
     replaceWith = '«';
     result = text.replaceAll(search, replaceWith);
     reverseSymbol(result);

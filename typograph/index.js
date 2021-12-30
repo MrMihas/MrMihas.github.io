@@ -93,7 +93,14 @@ function reverseSymbol2(text) {
     var search = [' ' + "»"];
     const replaceWith = [' ' +'«'];
     const result = text.replaceAll(search, replaceWith);
-    let checkingText = document.querySelector(".text");
+    lastCheck(result);
+}
+
+function lastCheck(text){
+   let search = ['(' + "»"];
+   const replaceWith = ['('+'«'];
+   const result = text.replaceAll(search, replaceWith);
+   let checkingText = document.querySelector(".text");
     checkingText.value = result.trim();
     checkingText.classList.add('access');
     copy.classList.remove("hidden");

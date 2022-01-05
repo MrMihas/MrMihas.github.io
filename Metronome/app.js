@@ -188,7 +188,7 @@ function updateMetronome() {
     if (bpm > 260 && bpm <= 280) { tempoTextString = "Eddie Van Halen" };
 
     tempoText.textContent = tempoTextString;
-    
+    dele.innerHTML = "clear all"
 }
 function validateTempo() {
     if (bpm <= 20) { return };
@@ -234,7 +234,8 @@ for (const key in localStorage) {
     
         liSpan.classList.add('planning__tempo');
         li.classList.add('planning__name')
-        if(key == 'key' || key == 'clear' || key == 'length') {break}
+    
+        if(isNaN(key)) {break}
 
         liSpan.setAttribute('bit', element);
         planTitle.setAttribute('bit', element )
@@ -249,7 +250,7 @@ for (const key in localStorage) {
       
         planningList.append(li)
 
-        dele.append("clear all")
+        dele.innerHTML = "clear all"
     
 }
 

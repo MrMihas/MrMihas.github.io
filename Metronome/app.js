@@ -235,7 +235,7 @@ for (const key in localStorage) {
         liSpan.classList.add('planning__tempo');
         li.classList.add('planning__name')
     
-        if( key == 'key' || key == 'clear' || key == 'length') {break}
+        if( key == 'key' || key == 'clear' || key == 'length' || key == 'user' || key == 'days' || key == 'hidden'|| key === 'date') {break}
 
         liSpan.setAttribute('bit', element);
         planTitle.setAttribute('bit', element )

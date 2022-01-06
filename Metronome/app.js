@@ -246,8 +246,6 @@ for (const key in localStorage) {
         liSpan.append(" | темп: " + element)
         
         li.append(liSpan)
-        
-      
 
     
 }
@@ -296,6 +294,7 @@ for(const [key, value] of Object.entries(datas)) {
 
 }
 
+}
 
 dele.addEventListener("click", ()=>{
     localStorage.clear();

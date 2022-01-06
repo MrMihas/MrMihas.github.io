@@ -215,7 +215,7 @@ const metronome = new Timer(playClick, 60000 / bpm, { immediate: true });
 
 
 
-if(localStorage.getItem  == null || localStorage.getItem  == undefined || localStorage.getItem  == " "){
+if(document.cookie  == undefined){
 
  
 }  else if(document.cookie  !== undefined ){

@@ -259,13 +259,22 @@ const datas = document.cookie.split(';')
 
 for(const [key, value] of Object.entries(datas)) {
     
-      dele.addEventListener("click", ()=>{
-        document.cookie = `${t2[0]}=; expires=${Date.now()}; path=/;`;
-        window.location.reload()
-    })
     
 
     const t2 = value.split('=')
+ 
+    
+      dele.addEventListener("click", ()=>{
+        delete_cookie(t2[0]);
+        
+    })
+    
+    
+    
+    function delete_cookie(name) {
+        document.cookie = name +'=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+        window.location.reload();
+      }
     
     let reg = /[\d]+/;
     let result = t2[1].match(reg);

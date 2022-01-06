@@ -80,7 +80,7 @@ function addName(){
 
    li.setAttribute('bit',tempoSlider.value )
 
-   document.cookie = planningTitle.value + "=" +tempoSlider.value);
+   document.cookie = planningTitle.value + "=" +tempoSlider.value;
  
 
     planningTitle.value = "";

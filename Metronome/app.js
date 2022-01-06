@@ -84,6 +84,7 @@ function addName(){
  
 
     planningTitle.value = "";
+      window.location.reload()
     }
 
 tempoSlider.addEventListener('input', () => {
@@ -258,12 +259,14 @@ const datas = document.cookie.split(';')
 
 for(const [key, value] of Object.entries(datas)) {
     
-    console.log('key = ' + key, "value = " + value );
+      dele.addEventListener("click", ()=>{
+        document.cookie = `${t2[0]}=; expires=${Date.now()}; path=/;`;
+        window.location.reload()
+    })
+    
 
     const t2 = value.split('=')
     
-    let findNum = +t2[1];
-
     let reg = /[\d]+/;
     let result = t2[1].match(reg);
 
@@ -289,14 +292,6 @@ for(const [key, value] of Object.entries(datas)) {
       
         planningList.append(li)
 
-    } 
-    
-
+     } 
+  }
 }
-
-}
-
-dele.addEventListener("click", ()=>{
-    localStorage.clear();
-    window.location.reload()
-})

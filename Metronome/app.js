@@ -80,7 +80,7 @@ function addName(){
 
    li.setAttribute('bit',tempoSlider.value )
 
-   localStorage.setItem(planningTitle.value, +tempoSlider.value);
+   document.cookie(planningTitle.value + "=" +tempoSlider.value);
  
 
     planningTitle.value = "";
@@ -218,7 +218,7 @@ const metronome = new Timer(playClick, 60000 / bpm, { immediate: true });
 if(localStorage.getItem  == null || localStorage.getItem  == undefined || localStorage.getItem  == " "){
 
  
-}  else if(localStorage.getItem  !== null || localStorage.getItem  !== undefined || localStorage.getItem  !== " "){
+}  else if(document.cookie  !== undefined ){
          
      
 
@@ -248,11 +248,51 @@ for (const key in localStorage) {
         li.append(liSpan)
         
       
-        planningList.append(li)
 
-        dele.innerHTML = "clear all"
     
 }
+    
+    
+    
+    
+const datas = document.cookie.split(';')
+
+
+for(const [key, value] of Object.entries(datas)) {
+    
+    console.log('key = ' + key, "value = " + value );
+
+    const t2 = value.split('=')
+    
+    let findNum = +t2[1];
+
+    let reg = /[\d]+/;
+    let result = t2[1].match(reg);
+
+    if(result){
+        let li = document.createElement('li');
+        let planTitle = document.createElement('span');
+        let liSpan = document.createElement('span');
+        planTitle.classList.add('shud__title')
+    
+        liSpan.classList.add('planning__tempo');
+        li.classList.add('planning__name')
+    
+        liSpan.setAttribute('bit', t2[1]);
+        planTitle.setAttribute('bit', t2[1] )
+    
+        planTitle.append(t2[0])
+        li.append(planTitle);
+    
+        liSpan.append(" | темп: " + t2[1])
+        
+        li.append(liSpan)
+        
+      
+        planningList.append(li)
+
+    } 
+    
 
 }
 

@@ -1,0 +1,269 @@
+/* USER VARIABLES SECTION */
+
+:root {
+	--button-hero: #67AC5B;
+	--text-bold: 700;
+	--text: #3E4857;
+	--regular-text: 16px;
+	--lineheight: 1.65;
+	--userfont: roboto-st, sans-serif;
+	--systemfont: -apple-system, BlinkMacSystemFont, Arial, sans-serif;
+	--accent: #D63864;
+
+}
+
+/* BOOTSTRAP SETTINGS SECTION */
+
+/* gutter 20px (10px + 10px). Comment this code for default gutter start at 1.5rem (24px) wide. */
+.container, .container-fluid, .container-lg, .container-md, .container-sm, .container-xl, .container-xxl { --bs-gutter-x: .625rem; }
+.row, .row > * { --bs-gutter-x: 1.25rem; }
+
+/* FONTS LOAD SECTION */
+
+@font-face { src: url("../fonts/roboto-regular-webfont.woff2") format("woff2"); font-family: "roboto-st"; font-weight: 400; font-style: normal; }
+@font-face { src: url("../fonts/roboto-italic-webfont.woff2") format("woff2"); font-family: "roboto-st"; font-weight: 400; font-style: italic; }
+@font-face { src: url("../fonts/roboto-bold-webfont.woff2") format("woff2"); font-family: "roboto-st"; font-weight: 700; font-style: normal; }
+@font-face { src: url("../fonts/roboto-bolditalic-webfont.woff2") format("woff2"); font-family: "roboto-st"; font-weight: 700; font-style: italic; }
+
+@font-face { src: url("../fonts/Helvetica.otf") format("woff2"); font-family: "helvetica"; font-weight: 400; font-style: normal; }
+
+/* GENERAL CSS SETTINGS */
+p{margin: 0; padding: 0; }
+a{text-decoration: none; color: inherit;}
+::placeholder { color: #666; }
+/* ::selection { background-color: var(--accent); color: #fff; } */
+input, textarea { outline: none; }
+input:focus:required:invalid, textarea:focus:required:invalid { border-color: red; }
+input:required:valid, textarea:required:valid { border-color: green; }
+img{max-width: 100%;}
+
+/* helpers */
+.text-bold{
+	font-weight: var(--text-bold);
+}
+
+.title{
+    font-family: Arial;
+    text-align: center;
+    font-size: 1.56rem;
+}
+
+
+.title-left{
+    font-family: Arial;
+    text-align: left;
+    font-size: 1.56rem;
+}
+
+.subtitle{
+	font-size: 1.3rem;
+    text-align: center;
+    line-height: 31px;
+    letter-spacing: 0.5px;
+	
+}
+
+.subtitle-left{
+	font-size: 1.3rem;
+    text-align: left;
+    line-height: 31px;
+    letter-spacing: 0.5px;
+}
+
+.padding-bottom-3r{
+	padding-bottom: 3.75rem;
+}
+
+body {
+	font-family: var(--userfont);
+	font-size: var(--regular-text);
+	line-height: var(--lineheight);
+	color: var(--text);
+	min-width: 320px;
+	position: relative;
+	overflow-x: hidden;
+	background: #fff;
+}
+
+/* USER STYLES */
+
+.image {
+	max-width: 100%;
+	margin-bottom: var(--bs-gutter-x);
+	border-radius: 4px;
+}
+
+
+.hero__bg{
+	width: 100%;
+	background: url(../images/heroBG.png) no-repeat;
+	background-size: cover;
+
+}
+
+
+
+.hero__title h2{
+	font-size: 3.32rem;
+}
+
+.hero__subtitle{
+	padding-top: 1rem;
+	font-size: 1.1rem;
+	letter-spacing: 0.5px;
+}
+
+.hero__facebook-icon{
+	bottom: 0;
+	left: 50%;
+}
+.hero__button{
+	padding-top: 2.3rem;
+}
+.hero__button button{
+	border: none;
+	background: var(--button-hero);
+	color: #fff;
+	padding: 14px 32px;
+	text-transform: uppercase;
+	transition: color 0.3s;
+}
+
+.hero__button button:hover{
+	background: #7dc970;
+	;
+}
+
+.propose{
+	background: #fff;
+	padding-top: 2.5rem;
+	font-family: helvetica;
+}
+
+/* .propose__description{
+    font-size: 1.3rem;
+    text-align: center;
+    line-height: 31px;
+    letter-spacing: 0.5px;
+}
+ */
+
+.propose__title{
+	padding-top: 2.5rem;
+}
+
+.propose__subtitle{
+	padding-top: 1.25rem;
+	}
+
+	.example{
+		display: flex;
+		justify-content: center;
+		align-items: center;
+}
+
+	.examples .card{
+		border: none;
+		font-size: 1.1rem;
+		text-align: center;
+		padding-top: 3rem;
+	}
+
+	.examples .card img{
+		width: fit-content;
+	}
+
+	.propose__footer{
+		padding-top: 4.1rem;
+		padding-bottom: 2.25rem;
+		text-align: center;
+		font-size: 1.3rem;
+	}
+
+	.benefits{
+		background: #e5e5e5;
+		padding: 1.6rem 0;
+	}
+
+	.benefit{
+		background: transparent;
+		border: none;
+
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+	.benefit img{
+		width: fit-content;
+	}
+
+	/* .benefit .card-body .card-title{
+		font-family: Arial;
+		text-align: center;
+		font-size: 1.56rem;
+	} */
+
+	.benefit .card-body .card-text{
+		text-align: left;
+		font-family: helvetica;
+		font-size: 1.25rem;
+	}
+
+	.create{
+		padding-top: 4rem;
+	}
+
+.findBest{
+	padding-top: 5.4rem;
+}
+
+.faq{
+	padding-top: 6.25rem;
+}
+
+.faq__dropdown{
+	padding-top: 3.75rem;
+}
+
+.faq__dropdown-subtitle{
+	color: var(--text);
+}
+
+.faq__dropdown-subtitle:hover{
+	color: var(--text);
+}
+
+
+.dropdown-toggle::after{
+	position: absolute;
+	right: 0;
+	top: 45%;
+}
+
+.faq__dropdown__btn{
+	border: none;
+	border-bottom: 1px solid #C9C9C9;
+	padding-bottom:15px;
+	background: transparent;
+	white-space: normal;
+    text-align: left;
+	width: 90%;
+}
+.accent {
+	color: var(--accent);
+}
+
+
+.accent::after{
+transform:rotate(180deg);
+}
+
+.faq__dropdown--content{
+	padding-top: 15px;
+	display: none;
+	font-size: 1.125rem;
+	font-family: Arial;
+}
+.faq__dropdown--content.active{
+	display: block;
+}

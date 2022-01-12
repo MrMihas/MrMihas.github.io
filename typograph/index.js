@@ -84,7 +84,7 @@ function next2(text) {
 
 function reverseSymbol(text) {
     var search = ['\n' + "»"];
-    const replaceWith = ['«'];
+    const replaceWith = ['\n' + '«'];
     const result = text.replaceAll(search, replaceWith);
     reverseSymbol2(result);
 }

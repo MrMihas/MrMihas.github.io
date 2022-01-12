@@ -98,7 +98,7 @@ function reverseSymbol2(text) {
 
 function spaceCheck(text) {
     var search = ['\n' + "\n"];
-    const replaceWith = ['<\br>'];
+    const replaceWith = ['\n'];
     const result = text.replaceAll(search, replaceWith);
     lastCheck(result);
 }

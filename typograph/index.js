@@ -93,8 +93,16 @@ function reverseSymbol2(text) {
     var search = [' ' + "»"];
     const replaceWith = [' ' +'«'];
     const result = text.replaceAll(search, replaceWith);
+    spaceCheck(result);
+}
+
+function spaceCheck(text) {
+    var search = ['\n' + "\n"];
+    const replaceWith = ['\n'];
+    const result = text.replaceAll(search, replaceWith);
     lastCheck(result);
 }
+
 
 function lastCheck(text){
    let search = ['(' + "»"];

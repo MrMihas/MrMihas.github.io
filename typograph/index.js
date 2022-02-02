@@ -107,49 +107,32 @@ function reverseSymbol2(text) {
 }
 
 function addParagraph(text){
-       var search = [''+'\n'];
-       const replaceWith = ['</p><p>'];
+       var search = ['\n'];
+       const replaceWith = ['</br>'];
        const result = text.replaceAll(search, replaceWith);
     let checkingText = document.querySelector(".text");
- 
     checkingText.classList.add('hidden');
-//    copy.classList.remove("hidden");
+    copy.classList.remove("hidden");
     out.classList.remove("hidden");
     out.innerHTML = result;
-    dublParag();
 }
 
-function dublParag(){
-    let p = document.querySelectorAll('p');
-    p.forEach(el=>{
-         if(el.textContent == ""){
-       el.remove();
-    }
-    })
-   
-    
-}
+
 
 
 // copy text
 copy.addEventListener('click', function () {
     let copyText = out.innerText ;
         if (copyText === '')        return;
-    
-    
-    
-    
         
-navigator.clipboard.writeText(copyText).then(function(){
+navigator.clipboard.writeText(copyText);
     copy.setAttribute('value', 'Скопировано');
     copy.setAttribute('disabled', 'true');
     checkingText.classList.add('access-copy');
     setTimeout(() => {
-//        copy.setAttribute('value', 'Скопировать');
+        copy.setAttribute('value', 'Скопировать');
         copy.removeAttribute('disabled');
     }, 2000);
-});
-    
 });
 
 deleteText.addEventListener('click', ()=>{

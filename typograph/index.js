@@ -28,15 +28,7 @@ function startText(){
 }
 
 btn.addEventListener("click", () => {
-    
-         if(checkingText.value !== " "){
-             germanLeft();
-         } 
-  else {
-      alert('поле не должно быть пустым')
-  }
-
-   
+    germanLeft();
 });
 
 
@@ -45,16 +37,7 @@ btn.addEventListener("click", () => {
 function germanLeft(){
     const search = "„";
     const replaceWith = ' «';
-    let str = "<p>" + checkingText.value ;
-    const result = str.replaceAll(search, replaceWith);
-    germanRight(result);
-}
-
-
-function germanLeftEdit(){
-        const search = "„";
-    const replaceWith = ' «';
-    let str = out.textContent ;
+    let str = " " + checkingText.value ;
     const result = str.replaceAll(search, replaceWith);
     germanRight(result);
 }
@@ -86,6 +69,13 @@ function next(text) {
     search = '\"';
     replaceWith = '»';
     result = text.replaceAll(search, replaceWith);
+    next2(result);
+}
+
+function next2(text) {
+    search = '("';
+    replaceWith = '«';
+    result = text.replaceAll(search, replaceWith);
     reverseSymbol(result);
 }
 
@@ -94,7 +84,7 @@ function next(text) {
 
 function reverseSymbol(text) {
     var search = ['\n' + "»"];
-    const replaceWith = ['«'];
+    const replaceWith = ['\n' +'«'];
     const result = text.replaceAll(search, replaceWith);
     reverseSymbol2(result);
 }
@@ -103,26 +93,21 @@ function reverseSymbol2(text) {
     var search = [' ' + "»"];
     const replaceWith = [' ' +'«'];
     const result = text.replaceAll(search, replaceWith);
-    addParagraph(result)
+    lastCheck(result);
 }
 
-function addParagraph(text){
-       var search = ['\n'];
-       const replaceWith = ['</br>'];
-       const result = text.replaceAll(search, replaceWith);
-    let checkingText = document.querySelector(".text");
-    checkingText.classList.add('hidden');
+function lastCheck(text){
+   let search = ['(' + "»"];
+   const replaceWith = ['('+'«'];
+   const result = text.replaceAll(search, replaceWith);
+   let checkingText = document.querySelector(".text");
+    checkingText.value = result.trim();
+    checkingText.classList.add('access');
     copy.classList.remove("hidden");
-    out.classList.remove("hidden");
-    out.innerHTML = result;
 }
 
-
-
-
-// copy text
 copy.addEventListener('click', function () {
-    let copyText = out.innerText ;
+    let copyText = checkingText.value;
         if (copyText === '')        return;
         
 navigator.clipboard.writeText(copyText);
@@ -137,22 +122,21 @@ navigator.clipboard.writeText(copyText);
 
 deleteText.addEventListener('click', ()=>{
     checkingText.value = '';
-     checkingText.classList.remove('hidden');
-     out.classList.add('hidden');
     if(checkingText.value === ''){
         checkingText.classList.remove('access');
         checkingText.classList.remove('access-copy');
         checkingText.setAttribute('placeholder', 'Введите текст');
         copy.classList.add("hidden");
     }
-});
+})
+
 
 
 document.onblur = function(){
-    document.title = "ЗАМЕНА"
+    document.title = "«😳» ЗАМЕНА "
 }
 
 
 document.onfocus = function(){
-    document.title = "Замена прямых кавычек на елечки онлайн || Заменить кавычки";
+    document.title = "Замена прямых кавычек на елечки онлайн || Заменить кавычки || заменить кавычки на елочки онлайн";
 }

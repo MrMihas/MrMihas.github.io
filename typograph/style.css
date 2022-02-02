@@ -1,8 +1,15 @@
 body{
     background: #dee3ed;
     padding: 0;
-    font-family: sans-serif;
-    margin: 0;
+font-family: sans-serif;
+margin: 0;
+}
+
+.hidden{
+    opacity: 0;
+    visibility: hidden;
+    display: none !important;
+    height: 0 !important;
 }
 
 header{
@@ -10,9 +17,20 @@ header{
     justify-content: center;
     align-items: center;
 }
+
 .text{
+        min-height: 450px;
+}
+
+.out{
+    font-size: 21px;
+}
+
+.out p{
+   margin: 15px 0;
+}
+.text, .out{
     max-width: 100%;
-    min-height: 450px;
     block-size: fit-content;
     display: block;
     position: relative;
@@ -28,7 +46,8 @@ header{
 .block{
     width: fit-content;
     margin: 0 auto;
-    padding-bottom: 3rem;
+
+padding-bottom: 3rem;
 }
 
 .block input, 
@@ -46,28 +65,22 @@ header{
     transition: background 0.3s;
 }
 
-.block input:hover, 
-.block label:hover{
+.block input:hover{
     background: #e7d5318f;
 }
 
 .access{
-    color: midnightblue;
-    font-family: Arial;
-    font-size: 18px;
+    color: rgb(14, 3, 43);
+    font-family: sans-serif;
 }
+
 .access-copy{
     background: antiquewhite;
     color: #000;
 }
-.hidden{
-    opacity: 0;
-    visibility: hidden;
-}
-
 
 @media (min-width: 280px) {
-    .text{
+    .text, .out{
         width: 250px !important;    
     }
 
@@ -80,14 +93,15 @@ header{
 }
 
 @media (min-width: 380px) {
-    .text{
+    .text, .out{
        min-width: 280px;   
     }
     
 }
 
+
 @media (min-width: 576px) {
-    .text{
+ .text, .out{
        width: 500px !important;
        min-width: 450px;   
     }

@@ -28,7 +28,15 @@ function startText(){
 }
 
 btn.addEventListener("click", () => {
-    germanLeft();
+    
+         if(checkingText.value !== " "){
+             germanLeft();
+         } 
+  else {
+      alert('поле не должно быть пустым')
+  }
+
+   
 });
 
 
@@ -37,7 +45,16 @@ btn.addEventListener("click", () => {
 function germanLeft(){
     const search = "„";
     const replaceWith = ' «';
-    let str = " " + checkingText.value ;
+    let str = "<p>" + checkingText.value ;
+    const result = str.replaceAll(search, replaceWith);
+    germanRight(result);
+}
+
+
+function germanLeftEdit(){
+        const search = "„";
+    const replaceWith = ' «';
+    let str = out.textContent ;
     const result = str.replaceAll(search, replaceWith);
     germanRight(result);
 }
@@ -69,13 +86,6 @@ function next(text) {
     search = '\"';
     replaceWith = '»';
     result = text.replaceAll(search, replaceWith);
-    next2(result);
-}
-
-function next2(text) {
-    search = '("';
-    replaceWith = '«';
-    result = text.replaceAll(search, replaceWith);
     reverseSymbol(result);
 }
 
@@ -84,7 +94,7 @@ function next2(text) {
 
 function reverseSymbol(text) {
     var search = ['\n' + "»"];
-    const replaceWith = ['\n' + '«'];
+    const replaceWith = ['«'];
     const result = text.replaceAll(search, replaceWith);
     reverseSymbol2(result);
 }
@@ -93,58 +103,73 @@ function reverseSymbol2(text) {
     var search = [' ' + "»"];
     const replaceWith = [' ' +'«'];
     const result = text.replaceAll(search, replaceWith);
-    spaceCheck(result);
+    addParagraph(result)
 }
 
-function spaceCheck(text) {
-    var search = ['\n' + "\n"];
-    const replaceWith = ['\n'];
-    const result = text.replaceAll(search, replaceWith);
-    lastCheck(result);
+function addParagraph(text){
+       var search = [''+'\n'];
+       const replaceWith = ['</p><p>'];
+       const result = text.replaceAll(search, replaceWith);
+    let checkingText = document.querySelector(".text");
+ 
+    checkingText.classList.add('hidden');
+//    copy.classList.remove("hidden");
+    out.classList.remove("hidden");
+    out.innerHTML = result;
+    dublParag();
+}
+
+function dublParag(){
+    let p = document.querySelectorAll('p');
+    p.forEach(el=>{
+         if(el.textContent == ""){
+       el.remove();
+    }
+    })
+   
+    
 }
 
 
-function lastCheck(text){
-   let search = ['(' + "»"];
-   const replaceWith = ['('+'«'];
-   const result = text.replaceAll(search, replaceWith);
-   let checkingText = document.querySelector(".text");
-    checkingText.value = result.trim();
-    checkingText.classList.add('access');
-    copy.classList.remove("hidden");
-}
-
+// copy text
 copy.addEventListener('click', function () {
-    let copyText = checkingText.value;
+    let copyText = out.innerText ;
         if (copyText === '')        return;
+    
+    
+    
+    
         
-navigator.clipboard.writeText(copyText);
+navigator.clipboard.writeText(copyText).then(function(){
     copy.setAttribute('value', 'Скопировано');
     copy.setAttribute('disabled', 'true');
     checkingText.classList.add('access-copy');
     setTimeout(() => {
-        copy.setAttribute('value', 'Скопировать');
+//        copy.setAttribute('value', 'Скопировать');
         copy.removeAttribute('disabled');
     }, 2000);
+});
+    
 });
 
 deleteText.addEventListener('click', ()=>{
     checkingText.value = '';
+     checkingText.classList.remove('hidden');
+     out.classList.add('hidden');
     if(checkingText.value === ''){
         checkingText.classList.remove('access');
         checkingText.classList.remove('access-copy');
         checkingText.setAttribute('placeholder', 'Введите текст');
         copy.classList.add("hidden");
     }
-})
-
+});
 
 
 document.onblur = function(){
-    document.title = "«😳» ЗАМЕНА "
+    document.title = "ЗАМЕНА"
 }
 
 
 document.onfocus = function(){
-    document.title = "Замена прямых кавычек на елечки онлайн || Заменить кавычки || заменить кавычки на елочки онлайн";
+    document.title = "Замена прямых кавычек на елечки онлайн || Заменить кавычки";
 }

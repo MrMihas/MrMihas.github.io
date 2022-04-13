@@ -32,6 +32,42 @@ btn.addEventListener("click", () => {
 });
 
 
+
+function formatedText(func, ...codes) {
+      let pressed = new Set();
+
+      document.addEventListener('keydown', function(event) {
+        pressed.add(event.code);
+        
+        console.log(event.code)
+
+        for (let code of codes) { // все ли клавиши из набора нажаты?
+          if (!pressed.has(code)) {
+            return;
+          }
+        }
+
+       pressed.clear();
+
+        func();
+      });
+
+      document.addEventListener('keyup', function(event) {
+        pressed.delete(event.code);
+      });
+
+    }
+
+    formatedText(
+      () => germanLeft(),
+      "ControlLeft",
+      "AltLeft",
+      "KeyF"
+    );
+
+
+
+
 //german
 
 function germanLeft(){

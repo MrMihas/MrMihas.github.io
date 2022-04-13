@@ -39,7 +39,6 @@ function formatedText(func, ...codes) {
       document.addEventListener('keydown', function(event) {
         pressed.add(event.code);
         
-        console.log(event.code)
 
         for (let code of codes) { // все ли клавиши из набора нажаты?
           if (!pressed.has(code)) {
@@ -168,7 +167,7 @@ function copiedFormatedText(func, ...codes) {
       document.addEventListener('keydown', function(event) {
         pressed.add(event.code);
         
-        console.log(event.code)
+     
 
         for (let code of codes) { // все ли клавиши из набора нажаты?
           if (!pressed.has(code)) {
@@ -191,7 +190,7 @@ function copiedFormatedText(func, ...codes) {
       () => copiedText(),
       "ControlLeft",
       "AltLeft",
-      "KeyС"
+      "KeyC"
     );
 
 
@@ -199,6 +198,8 @@ function copiedFormatedText(func, ...codes) {
 function copiedText(){
     let copyText = checkingText.value;
         if (copyText === '')        return;
+    
+       console.log("ok")
         
     navigator.clipboard.writeText(copyText);
         copy.setAttribute('value', 'Скопировано');
@@ -232,7 +233,6 @@ function clearArea(func, ...codes) {
       document.addEventListener('keydown', function(event) {
         pressed.add(event.code);
         
-        console.log(event.code)
 
         for (let code of codes) { // все ли клавиши из набора нажаты?
           if (!pressed.has(code)) {

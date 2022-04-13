@@ -31,7 +31,7 @@ btn.addEventListener("click", () => {
     germanLeft();
 });
 
-
+// форматирование по комбинации клавиш
 
 function formatedText(func, ...codes) {
       let pressed = new Set();
@@ -142,6 +142,10 @@ function lastCheck(text){
     copy.classList.remove("hidden");
 }
 
+
+
+
+
 copy.addEventListener('click', function () {
     let copyText = checkingText.value;
         if (copyText === '')        return;
@@ -156,6 +160,59 @@ navigator.clipboard.writeText(copyText);
     }, 2000);
 });
 
+
+//копирование по комбинации
+function copiedFormatedText(func, ...codes) {
+      let pressed = new Set();
+
+      document.addEventListener('keydown', function(event) {
+        pressed.add(event.code);
+        
+        console.log(event.code)
+
+        for (let code of codes) { // все ли клавиши из набора нажаты?
+          if (!pressed.has(code)) {
+            return;
+          }
+        }
+
+       pressed.clear();
+
+        func();
+      });
+
+      document.addEventListener('keyup', function(event) {
+        pressed.delete(event.code);
+      });
+
+    }
+
+    copiedFormatedText(
+      () => copiedText(),
+      "ControlLeft",
+      "AltLeft",
+      "KeyС"
+    );
+
+
+
+function copiedText(){
+    let copyText = checkingText.value;
+        if (copyText === '')        return;
+        
+    navigator.clipboard.writeText(copyText);
+        copy.setAttribute('value', 'Скопировано');
+        copy.setAttribute('disabled', 'true');
+        checkingText.classList.add('access-copy');
+        setTimeout(() => {
+            copy.setAttribute('value', 'Скопировать');
+            copy.removeAttribute('disabled');
+        }, 2000);
+}
+
+
+
+
 deleteText.addEventListener('click', ()=>{
     checkingText.value = '';
     if(checkingText.value === ''){
@@ -166,6 +223,53 @@ deleteText.addEventListener('click', ()=>{
     }
 })
 
+
+//удаление по комбинации клавиш
+
+function clearArea(func, ...codes) {
+      let pressed = new Set();
+
+      document.addEventListener('keydown', function(event) {
+        pressed.add(event.code);
+        
+        console.log(event.code)
+
+        for (let code of codes) { // все ли клавиши из набора нажаты?
+          if (!pressed.has(code)) {
+            return;
+          }
+        }
+
+       pressed.clear();
+
+        func();
+      });
+
+      document.addEventListener('keyup', function(event) {
+        pressed.delete(event.code);
+      });
+
+    }
+
+    clearArea(
+      () => deletedText(),
+      "ControlLeft",
+      "AltLeft",
+      "KeyD"
+    );
+
+
+
+
+
+function deletedText(){
+ checkingText.value = '';
+    if(checkingText.value === ''){
+        checkingText.classList.remove('access');
+        checkingText.classList.remove('access-copy');
+        checkingText.setAttribute('placeholder', 'Введите текст');
+        copy.classList.add("hidden");
+    }}
 
 
 document.onblur = function(){

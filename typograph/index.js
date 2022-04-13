@@ -199,7 +199,6 @@ function copiedText(){
     let copyText = checkingText.value;
         if (copyText === '')        return;
     
-       console.log("ok")
         
     navigator.clipboard.writeText(copyText);
         copy.setAttribute('value', 'Скопировано');

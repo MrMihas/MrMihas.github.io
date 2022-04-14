@@ -113,3 +113,16 @@ padding-bottom: 3rem;
         margin-right: 1rem;}
     
 }
+
+
+
+.hotkey{
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	padding: 35px 0;
+}
+
+.hotkey code{
+	font-size: 16px;
+}

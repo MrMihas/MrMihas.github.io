@@ -60,7 +60,6 @@ function formatedText(func, ...codes) {
     formatedText(
       () => germanLeft(),
       "ControlLeft",
-      "AltLeft",
       "KeyF"
     );
 
@@ -189,7 +188,6 @@ function copiedFormatedText(func, ...codes) {
     copiedFormatedText(
       () => copiedText(),
       "ControlLeft",
-      "AltLeft",
       "KeyC"
     );
 
@@ -253,8 +251,7 @@ function clearArea(func, ...codes) {
     clearArea(
       () => deletedText(),
       "ControlLeft",
-      "AltLeft",
-      "KeyD"
+      "KeyX"
     );
 
 

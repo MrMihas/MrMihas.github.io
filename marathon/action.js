@@ -95,8 +95,6 @@
     let date = new Date();
 
     userStart = date.getUTCDate();
-    
-    let num = date.getMonth();
 
     month = date.getMonth();
 
@@ -211,7 +209,7 @@
         let start = +localStorage.getItem('date');
 
         date.setDate(date.getDate() + days);
-        
+        let num = date.getMonth();
 
         startOut.innerHTML = `Почато ${start} ${months[month]} закінчення ${date.getDate()} ${months[num]} ${date.getFullYear()}`;
 
@@ -243,7 +241,6 @@
                    div.appendChild(label);        
 
                 }
-                notific();
 
     }
 
@@ -317,7 +314,7 @@
             
             if( localStorage.getItem('currentTime') == currentTime ||currentTime < localStorage.getItem('currentTime')  ){
                 startOut.classList.add('att');
-                startOut.innerHTML = `<strong>Точно не сьогодні. Приходь завтра! </strong>`;
+                startOut.innerHTML = "<strong>Точно не сьогодні. Приходь завтра</strong>";
                 return false;
                 
             }
@@ -373,6 +370,12 @@
     });
 
     
+
+
+
+
+
+
     //очистка по клику
 
     let str = document.querySelectorAll('.ch');
@@ -454,6 +457,7 @@
 clearTimeout(notific);
 
     }
+
 
 
   
@@ -758,4 +762,5 @@ clearTimeout(notific);
  
 
 	mostrarCalendario(fecha.getFullYear(),fecha.getMonth()+1);  
+
 

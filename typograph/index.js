@@ -199,11 +199,11 @@ function copiedText(){
     
         
     navigator.clipboard.writeText(copyText);
-        copy.setAttribute('value', 'Скопировано');
+        copy.setAttribute('value', 'Скопійовано');
         copy.setAttribute('disabled', 'true');
         checkingText.classList.add('access-copy');
         setTimeout(() => {
-            copy.setAttribute('value', 'Скопировать');
+            copy.setAttribute('value', 'Скопійовано');
             copy.removeAttribute('disabled');
         }, 2000);
 }
@@ -216,7 +216,7 @@ deleteText.addEventListener('click', ()=>{
     if(checkingText.value === ''){
         checkingText.classList.remove('access');
         checkingText.classList.remove('access-copy');
-        checkingText.setAttribute('placeholder', 'Введите текст');
+        checkingText.setAttribute('placeholder', 'Введіть текст');
         copy.classList.add("hidden");
     }
 })
@@ -263,18 +263,18 @@ function deletedText(){
     if(checkingText.value === ''){
         checkingText.classList.remove('access');
         checkingText.classList.remove('access-copy');
-        checkingText.setAttribute('placeholder', 'Введите текст');
+        checkingText.setAttribute('placeholder', 'Введіть текст');
         copy.classList.add("hidden");
     }}
 
 
 document.onblur = function(){
-    document.title = "«😳» ЗАМЕНА "
+    document.title = "«😳» ЗАМІНА "
 }
 
 
 document.onfocus = function(){
-    document.title = "Замена прямых кавычек на елечки онлайн || Заменить кавычки || заменить кавычки на елочки онлайн";
+    document.title = "Заміна прямих лапок на ялинки онлайн || Замінити лапки|| замінити лапки на ялинки онлайн";
 }
 
 

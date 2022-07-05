@@ -1,37 +1,19 @@
 body{
     background: #dee3ed;
     padding: 0;
-font-family: sans-serif;
-margin: 0;
-}
-
-.hidden{
-    opacity: 0;
-    visibility: hidden;
-    display: none !important;
-    height: 0 !important;
+    font-family: sans-serif;
+    margin: 0;
 }
 
 header{
     display: flex;
     justify-content: center;
     align-items: center;
-	text-align: center;
 }
 
 .text{
-        min-height: 450px;
-}
-
-.out{
-    font-size: 21px;
-}
-
-.out p{
-   margin: 15px 0;
-}
-.text, .out{
     max-width: 100%;
+    min-height: 450px;
     block-size: fit-content;
     display: block;
     position: relative;
@@ -44,13 +26,15 @@ header{
     outline: none;
 }
 
-.block{
+.block, .buttons{
     width: fit-content;
     margin: 0 auto;
-
-padding-bottom: 3rem;
+    padding-bottom: 3rem;
 }
-
+.block{
+    display: flex;
+    flex-direction: column;
+}
 .block input, 
 .block label{
     padding: 20px 40px;
@@ -73,7 +57,6 @@ padding-bottom: 3rem;
 .access{
     color: rgb(14, 3, 43);
     font-family: sans-serif;
-    font-size: 20px;
 }
 
 .access-copy{
@@ -82,20 +65,20 @@ padding-bottom: 3rem;
 }
 
 @media (min-width: 280px) {
-    .text, .out{
+    .text{
         width: 250px !important;    
     }
 
-    .block{
-       display: flex;
-       flex-direction: column;
+
+    .buttons{
+        display: flex;
+        flex-direction: column;
     }
-    
     
 }
 
 @media (min-width: 380px) {
-    .text, .out{
+    .text{
        min-width: 280px;   
     }
     
@@ -103,19 +86,17 @@ padding-bottom: 3rem;
 
 
 @media (min-width: 576px) {
- .text, .out{
+    .text{
        width: 500px !important;
        min-width: 450px;   
     }
-    .block{
+    .buttons{
         flex-direction: row;
     }
     .block input{
         margin-right: 1rem;}
     
 }
-
-
 
 .hotkey{
 	width: 100%;
@@ -126,4 +107,13 @@ padding-bottom: 3rem;
 
 .hotkey code{
 	font-size: 16px;
+}
+
+
+.info{
+    display: flex;
+}
+
+.info p{
+    font-size: 14px;
 }

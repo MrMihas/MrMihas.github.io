@@ -1,5 +1,5 @@
 let date = new Date();
-let registDate = `${date.getDate()}.${date.getMonth()+1}.${date.getUTCFullYear()} `
+let registDate = `${date.getDate()}.${date.getMonth()+1}.${date.getUTCFullYear()} `;
 let calc;
 let string =  document.querySelector(".text");
 let countOut =  document.querySelector(".amount");
@@ -43,7 +43,7 @@ btn.addEventListener("click", () => {
 
 
 function calculate(value){
-    countOut.append(sessionStorage.getItem('counter'))
+
 
    if(sessionStorage.getItem('counter') == undefined || sessionStorage.getItem('date') == undefined){
          sessionStorage.setItem('date', registDate);
@@ -55,15 +55,21 @@ function calculate(value){
 
    } else if(sessionStorage.getItem('counter')){
 
-      let total = +sessionStorage.getItem('counter') + +value;
+       let total = +sessionStorage.getItem('counter') + +value;
       sessionStorage.setItem('counter', total);
 
    }
+
+    countOut.innerHTML = '';
+
+    countOut.append(sessionStorage.getItem('counter') + countOut.textContent)
  
 }
 
 
 if(sessionStorage.getItem('counter')){
 
-    countOut.innerHTML = sessionStorage.getItem('counter');
+    countOut.innerHTML = '';
+
+    countOut.append(sessionStorage.getItem('counter') + countOut.textContent)
 }

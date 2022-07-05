@@ -21,7 +21,7 @@ if(sessionStorage.getItem('date') !== registDate){
             string=string.replace(/[\s]+/gim, ' ');
 
             // Lets loop through the string and count the words
-            string.replace(/(\s)[^/n]/g, function (a) {
+            string.replace(/(\s)[^/n\._\-\/\*\(\)]/g, function (a) {
                // For each word found increase the counter value by 1
                   counter++;
             });

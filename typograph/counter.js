@@ -1,6 +1,5 @@
 let date = new Date();
 let registDate = `${date.getDate()}.${date.getMonth()+1}.${date.getUTCFullYear()} `
-let out =  document.querySelector("#out");
 let calc;
 let string =  document.querySelector(".text");
 let countOut =  document.querySelector(".amount");

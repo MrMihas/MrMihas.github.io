@@ -63,6 +63,14 @@ function formatedText(func, ...codes) {
       "KeyX"
     );
 
+    formatedText(
+      () =>  calculate(calc),
+      "ControlLeft",
+      "KeyX"
+    );
+
+
+
 
 
 

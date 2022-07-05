@@ -65,5 +65,5 @@ function calculate(value){
 
 if(sessionStorage.getItem('counter')){
 
-    countOut.append(sessionStorage.getItem('counter'))
+    countOut.innerHTML = sessionStorage.getItem('counter');
 }

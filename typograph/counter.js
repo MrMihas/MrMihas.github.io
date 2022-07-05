@@ -41,6 +41,8 @@ btn.addEventListener("click", () => {
 });
 
 
+
+
 function calculateText(func, ...codes) {
       let pressed = new Set();
 
@@ -67,7 +69,11 @@ function calculateText(func, ...codes) {
 
 
     calculateText(
-      () =>  calculate(calc),
+      () =>  {
+         if(string.value.trim() != "") {
+        calculate(calc)
+        }
+       },
       "ControlLeft",
       "KeyX"
     );

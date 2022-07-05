@@ -114,4 +114,8 @@ if(sessionStorage.getItem('counter')){
     countOut.innerHTML = '';
 
     countOut.append(sessionStorage.getItem('counter') + countOut.textContent)
+    
+    if(countOut.textContent == null || countOut.textContent == NaN){
+        document.location.reload();
+    }
 }

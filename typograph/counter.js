@@ -34,11 +34,16 @@ if(sessionStorage.getItem('date') !== registDate){
 });
 
 btn.addEventListener("click", () => {
-    if(string.value.trim() != "") {
-        calculate(calc)
-    }
+calcFomat(calc);
 
 });
+
+function calcFomat(calc){
+        if(string.value.trim() != "") {
+        calculate(calc)
+    }
+}
+    
 
 
 
@@ -69,11 +74,7 @@ function calculateText(func, ...codes) {
 
 
     calculateText(
-      () =>  {
-         if(string.value.trim() != "") {
-        calculate(calc)
-        }
-       },
+      () => calcFomat(calc),
       "ControlLeft",
       "KeyX"
     );

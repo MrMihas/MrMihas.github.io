@@ -9,6 +9,7 @@ header{
     display: flex;
     justify-content: center;
     align-items: center;
+	text-align: center;
 }
 
 .text{
@@ -48,6 +49,7 @@ header{
     background: #e7d531;
     border: none;
     transition: background 0.3s;
+    text-align: center;
 }
 
 .block input:hover{

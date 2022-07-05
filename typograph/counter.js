@@ -3,7 +3,7 @@ let registDate = `${date.getDate()}.${date.getMonth()+1}.${date.getUTCFullYear()
 let calc;
 let string =  document.querySelector(".text");
 let countOut =  document.querySelector(".amount");
-
+let total;
 if(sessionStorage.getItem('date') !== registDate){
     sessionStorage.clear();
 }
@@ -55,7 +55,7 @@ function calculate(value){
 
    } else if(sessionStorage.getItem('counter')){
 
-      let total = +sessionStorage.getItem('counter') + +value;
+       total = +sessionStorage.getItem('counter') + +value;
       sessionStorage.setItem('counter', total);
 
    }
@@ -65,5 +65,5 @@ function calculate(value){
 
 if(sessionStorage.getItem('counter')){
 
-    countOut.append(sessionStorage.getItem('counter'))
+    countOut.append(total)
 }

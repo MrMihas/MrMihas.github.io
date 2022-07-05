@@ -57,11 +57,11 @@ function formatedText(func, ...codes) {
 
     }
 
-//     formatedText(
-//       () => germanLeft(),
-//       "ControlLeft",
-//       "KeyX"
-//     );
+    formatedText(
+      () => germanLeft(),
+      "ControlLeft",
+      "KeyX"
+    );
 
 
 
@@ -188,11 +188,11 @@ function copiedFormatedText(func, ...codes) {
 
     }
 
-//     copiedFormatedText(
-//       () => copiedText(),
-//       "ControlLeft",
-//       "KeyC"
-//     );
+    copiedFormatedText(
+      () => copiedText(),
+      "ControlLeft",
+      "KeyC"
+    );
 
 
 
@@ -251,11 +251,11 @@ function clearArea(func, ...codes) {
 
     }
 
-//     clearArea(
-//       () => deletedText(),
-//       "ControlLeft",
-//       "KeyZ"
-//     );
+    clearArea(
+      () => deletedText(),
+      "ControlLeft",
+      "KeyZ"
+    );
 
 
 

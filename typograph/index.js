@@ -1,4 +1,4 @@
-let out = document.querySelector(".out");
+
 let checkingText = document.querySelector(".text");
 
 let btn = document.querySelector(".btn");
@@ -215,6 +215,7 @@ function copiedText(){
 
 
 deleteText.addEventListener('click', ()=>{
+    pasted.innerHTML = 0;
     checkingText.value = '';
     if(checkingText.value === ''){
         checkingText.classList.remove('access');
@@ -263,6 +264,7 @@ function clearArea(func, ...codes) {
 
 function deletedText(){
  checkingText.value = '';
+     pasted.innerHTML = 0;
     if(checkingText.value === ''){
         checkingText.classList.remove('access');
         checkingText.classList.remove('access-copy');

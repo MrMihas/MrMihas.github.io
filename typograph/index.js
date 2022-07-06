@@ -33,35 +33,35 @@ btn.addEventListener("click", () => {
 
 // форматирование по комбинации клавиш
 
-// function formatedText(func, ...codes) {
-//       let pressed = new Set();
+function formatedText(func, ...codes) {
+      let pressed = new Set();
 
-//       document.addEventListener('keydown', function(event) {
-//         pressed.add(event.code);
+      document.addEventListener('keydown', function(event) {
+        pressed.add(event.code);
         
 
-//         for (let code of codes) { // все ли клавиши из набора нажаты?
-//           if (!pressed.has(code)) {
-//             return;
-//           }
-//         }
+        for (let code of codes) { // все ли клавиши из набора нажаты?
+          if (!pressed.has(code)) {
+            return;
+          }
+        }
 
-//        pressed.clear();
+       pressed.clear();
 
-//         func();
-//       });
+        func();
+      });
 
-//       document.addEventListener('keyup', function(event) {
-//         pressed.delete(event.code);
-//       });
+      document.addEventListener('keyup', function(event) {
+        pressed.delete(event.code);
+      });
 
-//     }
+    }
 
-//     formatedText(
-//       () => germanLeft(),
-//       "ControlLeft",
-//       "KeyX"
-//     );
+    formatedText(
+      () => germanLeft(),
+      "ControlLeft",
+      "KeyX"
+    );
 
 
 

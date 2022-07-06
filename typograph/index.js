@@ -152,11 +152,11 @@ copy.addEventListener('click', function () {
         if (copyText === '')        return;
         
 navigator.clipboard.writeText(copyText);
-    copy.setAttribute('value', 'Скопировано');
+    copy.setAttribute('value', 'Скопійовано');
     copy.setAttribute('disabled', 'true');
     checkingText.classList.add('access-copy');
     setTimeout(() => {
-        copy.setAttribute('value', 'Скопировать');
+        copy.setAttribute('value', 'Копіювати');
         copy.removeAttribute('disabled');
     }, 2000);
 });

@@ -32,6 +32,9 @@ if(localStorage.getItem('date-typograph') !== registDate){
            return  calc = +counter;
         }
 
+    if(string.value.trim() == ''){
+         pasted.innerHTML = 0;
+      }
 
       var numberWords = countWordsString(string.value.trim());
       outEntrier(calc)

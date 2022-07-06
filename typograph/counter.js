@@ -7,8 +7,8 @@ let pasted = document.querySelector(".pasted");
 
 
 
-if(sessionStorage.getItem('date') !== registDate){
-    sessionStorage.clear();
+if(localStorage.getItem('date-typograph') !== registDate){
+    localStorage.clear();
 }
 
 
@@ -99,33 +99,33 @@ function calculateText(func, ...codes) {
 function calculate(value){
 
 
-   if(sessionStorage.getItem('counter') == undefined || sessionStorage.getItem('date') == undefined){
-         sessionStorage.setItem('date', registDate);
+   if(localStorage.getItem('counter-typograph') == undefined || localStorage.getItem('date-typograph') == undefined){
+         localStorage.setItem('date-typograph', registDate);
 
          if( value > 1){
-            sessionStorage.setItem('counter', value);
+            localStorage.setItem('counter-typograph', value);
 
 }
 
-   } else if(sessionStorage.getItem('counter')){
+   } else if(localStorage.getItem('counter-typograph')){
 
-       let total = +sessionStorage.getItem('counter') + +value;
-      sessionStorage.setItem('counter', total);
+       let total = +localStorage.getItem('counter-typograph') + +value;
+      localStorage.setItem('counter-typograph', total);
 
    }
 
     countOut.innerHTML = '';
 
-    countOut.append(sessionStorage.getItem('counter') + countOut.textContent)
+    countOut.append(localStorage.getItem('counter-typograph') + countOut.textContent)
  
 }
 
 
-if(sessionStorage.getItem('counter')){
+if(localStorage.getItem('counter-typograph')){
 
     countOut.innerHTML = '';
 
-    countOut.append(sessionStorage.getItem('counter') + countOut.textContent)
+    countOut.append(localStorage.getItem('counter-typograph') + countOut.textContent)
     
     if(countOut.textContent == null || countOut.textContent == NaN){
         document.location.reload();

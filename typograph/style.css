@@ -118,8 +118,14 @@ text-align: center;
 
 .info{
     display: flex;
+    flex-direction: column;
 }
 
 .info p{
     font-size: 14px;
+}
+
+.gray{
+    background: #ccc;
+    padding: 5px;
 }

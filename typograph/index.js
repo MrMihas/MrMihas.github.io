@@ -254,7 +254,7 @@ function clearArea(func, ...codes) {
     clearArea(
       () => deletedText(),
       "ControlLeft",
-      "KeyB"
+      "KeyQ"
     );
 
 

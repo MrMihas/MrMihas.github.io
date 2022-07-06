@@ -3,6 +3,9 @@ let registDate = `${date.getDate()}.${date.getMonth()+1}.${date.getUTCFullYear()
 let calc;
 let string =  document.querySelector(".text");
 let countOut =  document.querySelector(".amount");
+let pasted = document.querySelector(".pasted");
+
+
 
 if(sessionStorage.getItem('date') !== registDate){
     sessionStorage.clear();
@@ -10,7 +13,7 @@ if(sessionStorage.getItem('date') !== registDate){
 
 
 
-    string.addEventListener('change', ()=>{
+    string.addEventListener('input', ()=>{
 
    function countWordsString(string){
 
@@ -29,10 +32,12 @@ if(sessionStorage.getItem('date') !== registDate){
            return  calc = +counter;
         }
 
+
       var numberWords = countWordsString(string.value.trim());
+      outEntrier(calc)
 
 });
-
+ 
 btn.addEventListener("click", () => {
 calcFomat(calc);
 
@@ -44,40 +49,47 @@ function calcFomat(calc){
     }
 }
     
+function outEntrier(calc) {
+
+   console.log(calc)
+   if(string.value.trim() != "" || calc > 1) {
+         pasted.innerHTML = calc;
+    } 
+  
+}
 
 
 
+function calculateText(func, ...codes) {
+      let pressed = new Set();
 
-// function calculateText(func, ...codes) {
-//       let pressed = new Set();
-
-//       document.addEventListener('keydown', function(event) {
-//         pressed.add(event.code);
+      document.addEventListener('keydown', function(event) {
+        pressed.add(event.code);
         
 
-//         for (let code of codes) { // все ли клавиши из набора нажаты?
-//           if (!pressed.has(code)) {
-//             return;
-//           }
-//         }
+        for (let code of codes) { // все ли клавиши из набора нажаты?
+          if (!pressed.has(code)) {
+            return;
+          }
+        }
 
-//        pressed.clear();
+       pressed.clear();
 
-//         func();
-//       });
+        func();
+      });
 
-//       document.addEventListener('keyup', function(event) {
-//         pressed.delete(event.code);
-//       });
+      document.addEventListener('keyup', function(event) {
+        pressed.delete(event.code);
+      });
 
-//     }
+    }
 
 
-//     calculateText(
-//       () => calcFomat(calc),
-//       "ControlLeft",
-//       "KeyX"
-//     );
+    calculateText(
+      () => calcFomat(calc),
+      "ControlLeft",
+      "KeyX"
+    );
 
 
 

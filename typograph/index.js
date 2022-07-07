@@ -206,7 +206,7 @@ function copiedText(){
         copy.setAttribute('disabled', 'true');
         checkingText.classList.add('access-copy');
         setTimeout(() => {
-            copy.setAttribute('value', 'Скопійовано');
+            copy.setAttribute('value', 'Копіювати');
             copy.removeAttribute('disabled');
         }, 2000);
 }

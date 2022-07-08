@@ -140,7 +140,7 @@ text-align: center;
 	border-radius:5px;
 	}
 
-.lang a.active{	background: #9f9941; font-weight: 600;}
+.lang a.active{	background: linear-gradient(steelblue, yellow); font-weight: 600;}
 
 .lang span{padding-right: 2px;}
 	

@@ -140,9 +140,9 @@ text-align: center;
 	border-radius:5px;
 	}
 
-.lang a.active{	background: linear-gradient(steelblue, yellow); font-weight: 600;}
+.lang a.active{	background: linear-gradient(steelblue, yellow); font-weight: 600; cursor: none;}
 
-.lang a.activeRU{background: linear-gradient(steelblue, white,steelblue); font-weight: 600;}
+.lang a.activeRU{background: linear-gradient(steelblue, white,steelblue); font-weight: 600; cursor: none;}
 
 .lang span{padding-right: 2px;}
 	

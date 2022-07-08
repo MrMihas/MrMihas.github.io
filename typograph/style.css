@@ -142,6 +142,8 @@ text-align: center;
 
 .lang a.active{	background: linear-gradient(steelblue, yellow); font-weight: 600;}
 
+.lang a.activeRU{background: linear-gradient(steelblue, white,steelblue); font-weight: 600;}
+
 .lang span{padding-right: 2px;}
 	
 .blue{color: blue;}

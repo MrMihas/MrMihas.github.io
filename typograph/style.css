@@ -137,9 +137,11 @@ text-align: center;
 }
 .lang a{
 	padding: 5px;
-	background: #9f9941;
-	border-radius:5px; 
+	border-radius:5px;
+	font-weight: 600;
 }
+
+.lang a.active{	background: #9f9941;}
 
 .lang span{padding-right: 3px;}
 	

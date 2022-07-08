@@ -129,3 +129,19 @@ text-align: center;
     background: #ccc;
     padding: 5px;
 }
+
+.lang{
+  position: absolute;
+  right: 30px;
+  top: 30px;
+}
+.lang a{
+	padding: 5px;
+	background: #9f9941;
+	border-radius:5px; 
+}
+
+.lang span{padding-right: 3px;}
+	
+.blue{color: blue;}
+.yellow{color:yellow}

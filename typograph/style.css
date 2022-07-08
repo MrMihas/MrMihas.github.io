@@ -138,12 +138,11 @@ text-align: center;
 .lang a{
 	padding: 5px;
 	border-radius:5px;
-	font-weight: 600;
-}
+	}
 
-.lang a.active{	background: #9f9941;}
+.lang a.active{	background: #9f9941; font-weight: 600;}
 
-.lang span{padding-right: 3px;}
+.lang span{padding-right: 2px;}
 	
 .blue{color: blue;}
 .yellow{color:yellow}

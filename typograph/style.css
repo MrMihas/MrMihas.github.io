@@ -140,9 +140,9 @@ text-align: center;
 	border-radius:5px;
 	}
 
-.lang a.active{	background: linear-gradient(#0057b8, #ffd700); font-weight: 600; cursor: none;}
+.lang a.active{	background: linear-gradient(#0057b8 50%, #ffd700 50%); font-weight: 600; cursor: none;}
 
-.lang a.activeRU{background: linear-gradient(#ffffff,#088CE8, #ffffff); font-weight: 600; cursor: none;}
+.lang a.activeRU{background: linear-gradient(#ffffff 33.3%,#088CE8 33.3%, #ffffff 33.3%); font-weight: 600; cursor: none;}
 
 .lang span{padding-right: 2px;}
 	

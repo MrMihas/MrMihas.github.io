@@ -45,10 +45,10 @@ if(localStorage.getItem('date-typograph') !== registDate){
 
 function heightControl(calc){
   if(calc < 100){
-    string.style.height = '';
+    string.style.minHeight = '';
    }
-    string.style.height = '';
-    string.style.height = calc + 300 + 'px';
+    string.style.minHeight = '';
+    string.style.minHeight = calc + 300 + 'px';
     
 }
 

@@ -37,7 +37,7 @@ if(localStorage.getItem('date-typograph') !== registDate){
       }
 
       var numberWords = countWordsString(string.value.trim());
-      // outEntrier(calc)
+      outEntrier(calc)
       heightControl(calc)
 
 });

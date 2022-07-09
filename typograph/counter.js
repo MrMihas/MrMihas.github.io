@@ -37,10 +37,23 @@ if(localStorage.getItem('date-typograph') !== registDate){
       }
 
       var numberWords = countWordsString(string.value.trim());
-      outEntrier(calc)
+      // outEntrier(calc)
+      heightControl(calc)
 
 });
  
+
+function heightControl(calc){
+  if(calc < 100){
+    string.style.height = '';
+   }
+    string.style.height = '';
+    string.style.height = calc + 300 + 'px';
+    
+}
+
+
+
 btn.addEventListener("click", () => {
 calcFomat(calc);
 

@@ -14,7 +14,7 @@ header{
 
 .text{
     max-width: 100%;
-    min-height: 450px;
+    min-height: 300px;
     block-size: fit-content;
     display: block;
     position: relative;
@@ -115,6 +115,8 @@ header{
 .hotkey p{
 text-align: center;
 }
+
+.hidden{display:none}
 
 .info{
     display: flex;

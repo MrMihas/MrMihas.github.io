@@ -263,6 +263,7 @@ function clearArea(func, ...codes) {
 
 
 function deletedText(){
+        checkingText.style.minHeight = '';
  checkingText.value = '';
      pasted.innerHTML = 0;
     if(checkingText.value === ''){

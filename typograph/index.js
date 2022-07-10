@@ -215,6 +215,7 @@ function copiedText(){
 
 
 deleteText.addEventListener('click', ()=>{
+    checkingText.style.minHeight = '';
     pasted.innerHTML = 0;
     checkingText.value = '';
     if(checkingText.value === ''){

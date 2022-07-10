@@ -48,7 +48,7 @@ function heightControl(calc){
     string.style.minHeight = '';
    }
     string.style.minHeight = '';
-    string.style.minHeight = calc + 300 + 'px';
+    string.style.minHeight = calc + 250 + 'px';
     
 }
 

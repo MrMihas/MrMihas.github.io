@@ -214,6 +214,7 @@ function copiedText(){
 
 
 deleteText.addEventListener('click', ()=>{
+    checkingText.style.minHeight = '';
     pasted.innerHTML = 0;
     checkingText.value = '';
     if(checkingText.value === ''){
@@ -262,6 +263,7 @@ function clearArea(func, ...codes) {
 
 
 function deletedText(){
+checkingText.style.minHeight = '';
  checkingText.value = '';
      pasted.innerHTML = 0;
     if(checkingText.value === ''){

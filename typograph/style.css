@@ -12,6 +12,10 @@ header{
 	text-align: center;
 }
 
+header h1{
+    font-size: 20px;
+}
+
 .text{
     max-width: 100%;
     min-height: 300px;
@@ -100,19 +104,101 @@ header{
     
 }
 
+.keys{
+    overflow: hidden;
+   height: 0;
+    
+}
+
+
+.keys.hide{
+     animation: hide 0.5s  forwards  ease-in-out ;
+  
+}
+@keyframes hide{
+    from{
+
+        height: 100px;
+    }
+
+    to{
+        height: 0;
+    }
+}
+
+
+.keys.active{
+    animation: show 0.5s  forwards  ease-in-out ;
+}
+
+@keyframes show{
+    from{
+        height: 0;
+    }
+
+    to{
+        height: 100px;
+    }
+}
+
 .hotkey{
 	width: 100%;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
-	padding: 35px 0;
+	padding: 10px 0;
+}
+
+.hotkey h3{
+    cursor: pointer;
+    position: relative;
+}
+
+.hotkey h3:before,
+.hotkey h3:after{
+    content: "";
+    position: absolute;
+    width: 50%;
+    height: 1px;
+    background: #000;
+    bottom: 0;
+    animation: arrow 5s 1s infinite ease-in-out ;
+}
+
+@keyframes arrow {
+        0%{
+            bottom:0;
+        }
+
+        5%{
+            bottom: -5px;
+        }
+
+        15%{
+            bottom: 0;
+        }
+
+   
+        100%{bottom: 0;}    
+}
+
+.hotkey h3:before{
+    left: 0;
+    transform: rotateZ(4deg);
+}
+
+.hotkey h3:after{
+    right: 0;
+    transform: rotateZ(-4deg);
 }
 
 .hotkey code{
-	font-size: 16px;
+	font-size: 13px;
+    font-weight: 600;
 }
 .hotkey p{
+    font-size: 13px;
 text-align: center;
 }
 
@@ -133,9 +219,11 @@ text-align: center;
 }
 
 .lang{
-  position: absolute;
-  right: 30px;
-  top: 30px;
+    position: relative;
+    margin: 0 auto;
+    text-align: center;
+    padding: 20px;
+  
 }
 .lang a{
 	padding: 5px;
@@ -150,3 +238,7 @@ text-align: center;
 	
 .blue{color: blue;}
 .yellow{color:yellow}
+
+.ru{
+    text-transform: uppercase;
+}

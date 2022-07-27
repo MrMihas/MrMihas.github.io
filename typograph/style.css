@@ -23,7 +23,7 @@ header h1{
     display: block;
     position: relative;
     padding: 1rem 0.5rem;
-    margin: 2rem auto;
+    margin: 1rem auto;
     background: #ffffff;
 
     border: 1px solid #e7d531;
@@ -34,7 +34,7 @@ header h1{
 .block, .buttons{
     width: fit-content;
     margin: 0 auto;
-    padding-bottom: 3rem;
+    padding-bottom: 20px;
 }
 .block{
     display: flex;
@@ -155,8 +155,11 @@ header h1{
     position: relative;
 }
 
-.hotkey h3:before,
-.hotkey h3:after{
+.hotkey h3::before,
+.hotkey h3::after,
+.title h3::before,
+.title H3::after
+{
     content: "";
     position: absolute;
     width: 50%;
@@ -183,12 +186,14 @@ header h1{
         100%{bottom: 0;}    
 }
 
-.hotkey h3:before{
+.hotkey h3:before,
+.title h3::before{
     left: 0;
     transform: rotateZ(4deg);
 }
 
-.hotkey h3:after{
+.hotkey h3:after,
+.title H3::after{
     right: 0;
     transform: rotateZ(-4deg);
 }
@@ -242,3 +247,60 @@ text-align: center;
 .ru{
     text-transform: uppercase;
 }
+
+
+.manual{
+    position: relative;
+    text-align: center;
+    display: none;
+}
+
+
+@media (min-width: 756px) {
+    .manual{
+        display: block;
+    }
+}
+
+.title h3{
+    display: inline;
+    position: relative;
+    cursor: pointer;
+}
+
+.manual__codes{
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+    width: 960px;
+    max-width: 100%;
+    padding: 15px 0;
+}
+
+.col{
+    width: 100%;
+    padding: 15px;
+}
+
+@media(min-width:756px){
+
+    .manual__codes{
+       flex-direction: row;
+    }
+    .col{
+        width: 33.3%;
+    }
+}
+
+.col span{
+    text-align: center;
+}
+
+.col p{
+    display: flex;
+    flex-direction: column;
+    }
+
+    .col p span{
+        padding-top: 5px;
+    }

@@ -12,19 +12,34 @@ if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|BB|PlayBook|IEMobile|Windows Phon
 }
 
 
-let hotkeys = document.querySelector(".hotkey h3");
+let hotkeys = document.querySelectorAll(".hotkey h3");
 
 let keys = document.querySelector('.keys');
 
 
-hotkeys.addEventListener('click', ()=>{
 
-if (keys.getAttribute('class') !== "keys active") {
-    keys.classList.remove('hide')
-    keys.classList.add('active')    
-} else{
-    keys.classList.remove('active')
-    keys.classList.add('hide')
-}
+hotkeys.forEach(el=>{
+
+    el.addEventListener('click', ()=>{
+
+        let next = el.nextElementSibling;
+
+        if (next.getAttribute('class') == "keys active" || next.getAttribute('class') == "manual__codes keys active")  {
+            next.classList.remove('active')
+            next.classList.add('hide')
+        }
+        
+        
+        else{
+            next.classList.remove('hide')
+            next.classList.add('active')
+          
+        }
+        
+        })
+        
 
 })
+
+
+

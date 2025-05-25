@@ -349,3 +349,41 @@ td {
     border: none;
 
 }
+
+#calendar {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+#calendar th, #calendar td {
+  border: 1px solid #ccc;
+  width: 14.2%;
+  text-align: center;
+  padding: 8px;
+}
+.empty {
+  background: #f9f9f9;
+}
+.today {
+  background: #ffe17a;
+  font-weight: bold;
+}
+.finish-day {
+  background: #90ee90;
+  font-weight: bold;
+}
+.calendar-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 5px;
+}
+.calendar-header button {
+  padding: 5px 10px;
+  cursor: pointer;
+}
+.month-name {
+  font-weight: bold;
+  font-size: 18px;
+}

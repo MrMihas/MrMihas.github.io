@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <title>Калькулятор циклів сну — обери свій ідеальний час</title>
+  <meta name="description" content="Онлайн калькулятор циклів сну. Дізнайся, коли краще лягати або прокидатися, щоб відчути себе бадьорим і відпочилим.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2280%22>🦉</text></svg>">
+
+  <!-- Open Graph для соцмереж -->
+  <meta property="og:title" content="Калькулятор циклів сну">
+  <meta property="og:description" content="Вирахуй оптимальний час для сну або пробудження. Зручний калькулятор для сов і жайворонків.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://example.com/sleep-calculator">
+
+  <!-- Мікророзмітка -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Калькулятор циклів сну",
+    "url": "https://example.com/sleep-calculator",
+    "applicationCategory": "HealthApplication",
+    "operatingSystem": "All",
+    "description": "Онлайн калькулятор циклів сну. Дізнайся, коли краще лягати або прокидатися, щоб відчути себе бадьорим і відпочилим."
+  }
+  </script>
+
+  <style>
+    body { font-family: Arial, sans-serif; margin: 0; padding: 20px; background: #121212; color: #f0f0f0; text-align: center; }
+    h1 { color: #f9f9f9; animation: fadeIn 1.2s ease-in-out; }
+    input, button, select { padding: 12px; margin: 8px 0; border: none; border-radius: 6px; font-size: 16px; }
+    input, select { width: 90%; max-width: 320px; }
+    button { background: #03DAC6; color: #000; cursor: pointer; transition: background 0.3s; }
+    button:hover { background: #00BFA5; }
+    .result { margin-top: 20px; padding: 15px; background: #1e1e1e; border-radius: 8px; display: inline-block; animation: fadeIn 1s ease-in; }
+    img { width: 120px; height: auto; margin: 10px 0; border-radius: 50%; }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 600px) {
+      h1 { font-size: 24px; }
+      input, button, select { width: 100%; }
+      img { width: 90px; }
+    }
+    .description {
+  max-width: 640px;
+  margin: 0 auto 20px;
+  padding: 10px;
+  background: #1a1a1a;
+  border-radius: 10px;
+  animation: fadeIn 1.5s ease-in-out;
+}
+.description p {
+  line-height: 1.6;
+  margin: 10px 0;
+  font-size: 16px;
+  color: #ddd;
+}
+.description strong {
+  color: #03DAC6;
+}
+
+.controls {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 10px 0 20px;
+}
+.controls button {
+  background: #333;
+  color: #fff;
+  padding: 10px 16px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+.controls button:hover {
+  background: #444;
+}
+.controls {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 10px 0 20px;
+}
+.controls button {
+  background: #333;
+  color: #fff;
+  padding: 10px 16px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+.controls button:hover {
+  background: #444;
+}
+
+.saved {
+  margin-top: 20px;
+  padding: 15px;
+  background: #1e1e1e;
+  border-radius: 8px;
+  display: none;
+  animation: fadeIn 0.8s ease-in-out;
+}
+.saved h3 {
+  color: #03DAC6;
+  margin-bottom: 10px;
+}
+
+
+
+  </style>
+</head>
+<body>
+<h1>Калькулятор циклів сну</h1>
+
+<div class="description">
+  <p>Людський сон поділяється на цикли тривалістю приблизно <strong>90 хвилин</strong>. Найкраще прокидатися наприкінці циклу — тоді організм перебуває у фазі легкого сну, і пробудження буде легким та приємним.</p>
+  <p>Якщо ж прокинутися посеред глибокого сну, можна відчувати втому, сонливість та роздратування, навіть якщо спали достатньо годин. Цей калькулятор допоможе тобі обрати ідеальний час для засинання або пробудження, щоб почуватися максимально бадьоро.</p>
+</div>
+
+<img id="modeImage" src="" alt="Режим">
+
+
+  <img id="modeImage" src="" alt="Режим">
+
+  <label>Що обчислюємо:</label>
+  <select id="mode" onchange="toggleInput()">
+    <option value="sleep">Я лягаю спати — коли вставати?</option>
+    <option value="wake">Я маю прокинутись — коли лягати?</option>
+  </select>
+
+
+
+  <br>
+  <label id="timeLabel">Час засинання:</label>
+  <input type="time" id="timeInput">
+  <button onclick="calculate()">Порахувати</button>
+
+  <!-- <div class="result" id="results"></div> -->
+
+<div class="controls">
+  <button onclick="saveAll()">💾 Зберегти вибір і результат</button>
+  <button onclick="resetAll()">♻️ Скинути все</button>
+</div>
+
+<div id="results"></div>
+
+<div class="saved" id="savedBlock"></div>
+
+
+
+  <script>
+    const owlImage = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAABGklEQVR42u3RMQ0AIAwDsPS9n3OIIuNSEaoN+5mAYWLpmjHtkobaN6D+PfYZ7R6puj949iFDUFVNQVVNQVVNQVVNQVVNQVVNQVVNQVVNQVVNQVVNQVVNQVVNQVVNQVVNQVVNQVVNQVVNQVVNQVVNQVVNQVVNQVVNQVVNQVVNQVVNQVVNQVVNQVVNQVVNQVVNQVVNQVVNQVVNQVVNQVVNQVVNQVVNQVVNQVVNQVVNQVVNQVVNQVVNQVVNQVVNQVVNQVVNQVVNQVVNQVVNQVVNQVVNQVVNQVVNQfWcA6i/K3PaY5E9AAAAAElFTkSuQmCC';
+    const larkImage = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAABCUlEQVR42u3SMQ0AAAjDMO5fNMbIRB+ez1srO2Qd6hw2yffA9H9nS3FoZT3zh0FAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAMD+EBe6A1u9IiMaAAAAAElFTkSuQmCC';
+
+    function toggleInput() {
+      const mode = document.getElementById('mode').value;
+      document.getElementById('timeLabel').innerText = mode === 'sleep' ? 'Час засинання:' : 'Час пробудження:';
+      document.getElementById('results').innerHTML = '';
+      document.getElementById('modeImage').src = mode === 'sleep' ? owlImage : larkImage;
+      document.getElementById('modeImage').alt = mode === 'sleep' ? 'Сова' : 'Жайворонок';
+    }
+
+    function calculate() {
+      const timeInput = document.getElementById('timeInput').value;
+      if (!timeInput) {
+        alert('Введи час');
+        return;
+      }
+
+      const [hours, minutes] = timeInput.split(':').map(Number);
+      let baseTime = new Date();
+      baseTime.setHours(hours);
+      baseTime.setMinutes(minutes);
+      baseTime.setSeconds(0);
+
+      const mode = document.getElementById('mode').value;
+      const resultsDiv = document.getElementById('results');
+      resultsDiv.innerHTML = '<h3>Результати:</h3>';
+
+      if (mode === 'sleep') {
+        baseTime.setMinutes(baseTime.getMinutes() + 15);
+        for (let i = 4; i <= 6; i++) {
+          const wakeTime = new Date(baseTime.getTime() + i * 90 * 60000);
+          resultsDiv.innerHTML += `<p>${i} циклів: <strong>${formatTime(wakeTime)}</strong></p>`;
+        }
+      } else {
+        for (let i = 6; i >= 4; i--) {
+          const sleepTime = new Date(baseTime.getTime() - (i * 90 + 15) * 60000);
+          resultsDiv.innerHTML += `<p>${i} циклів: <strong>${formatTime(sleepTime)}</strong></p>`;
+        }
+      }
+    }
+
+    function formatTime(date) {
+      return date.getHours().toString().padStart(2, '0') + ':' + date.getMinutes().toString().padStart(2, '0');
+    }
+function saveAll() {
+  const mode = document.getElementById('mode').value;
+  const time = document.getElementById('timeInput').value;
+  const results = document.getElementById('results').innerHTML;
+
+  if (!time || !results) {
+    alert('Спочатку заповни час і натисни "Порахувати".');
+    return;
+  }
+
+  localStorage.setItem('sleepMode', mode);
+  localStorage.setItem('sleepTime', time);
+  localStorage.setItem('sleepResults', results);
+
+  showSaved();
+}
+
+function resetAll() {
+  localStorage.removeItem('sleepMode');
+  localStorage.removeItem('sleepTime');
+  localStorage.removeItem('sleepResults');
+
+  document.getElementById('mode').value = 'sleep';
+  document.getElementById('timeInput').value = '';
+  document.getElementById('results').innerHTML = '';
+  document.getElementById('savedBlock').style.display = 'none';
+
+  toggleInput();
+}
+
+// функція для виведення збереженого результату
+function showSaved() {
+  const savedMode = localStorage.getItem('sleepMode');
+  const savedTime = localStorage.getItem('sleepTime');
+  const savedResults = localStorage.getItem('sleepResults');
+
+  const block = document.getElementById('savedBlock');
+
+  if (savedMode && savedTime && savedResults) {
+    block.style.display = 'block';
+    block.innerHTML = `
+      <h3>Збережений вибір і результат:</h3>
+      <p><strong>Режим:</strong> ${savedMode === 'sleep' ? 'Я лягаю спати' : 'Я прокидаюся'}</p>
+      <p><strong>Час:</strong> ${savedTime}</p>
+      ${savedResults}
+    `;
+  } else {
+    block.style.display = 'none';
+  }
+}
+
+// при завантаженні сторінки підтягуємо все з localStorage і виводимо на екран
+window.onload = () => {
+  const savedMode = localStorage.getItem('sleepMode');
+  const savedTime = localStorage.getItem('sleepTime');
+  const savedResults = localStorage.getItem('sleepResults');
+
+  if (savedMode) document.getElementById('mode').value = savedMode;
+  if (savedTime) document.getElementById('timeInput').value = savedTime;
+  if (savedResults) document.getElementById('results').innerHTML = savedResults;
+
+  toggleInput();
+  showSaved();
+};
+
+
+
+  </script>
+</body>
+</html>

@@ -119,6 +119,14 @@
 }
 
 
+.iconify {
+  transition: transform 0.4s ease;
+  cursor: pointer;
+}
+
+.iconify:hover {
+  transform: scale(1.2) rotate(10deg);
+}
 
   </style>
 </head>
@@ -136,10 +144,12 @@
   <img id="modeImage" src="" alt="Режим">
 
   <label>Що обчислюємо:</label>
-  <select id="mode" onchange="toggleInput()">
-    <option value="sleep">Я лягаю спати — коли вставати?</option>
-    <option value="wake">Я маю прокинутись — коли лягати?</option>
-  </select>
+<span class="iconify" data-icon="mdi:owl" data-width="36"></span>
+<select id="mode" onchange="toggleInput()">
+  <option value="sleep">Я лягаю спати</option>
+  <option value="wake">Я прокидаюся</option>
+</select>
+<span class="iconify" data-icon="mdi:bird" data-width="36"></span>
 
 
 
@@ -161,7 +171,7 @@
 <div class="saved" id="savedBlock"></div>
 
 
-
+<script src="https://code.iconify.design/3/3.1.0/iconify.min.js"></script>
   <script>
     const owlImage = 'https://cdn-icons-png.flaticon.com/512/616/616408.png';
     const larkImage = 'https://cdn-icons-png.flaticon.com/512/616/616490.png';

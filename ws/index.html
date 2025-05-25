@@ -154,6 +154,7 @@
   <button onclick="saveAll()">💾 Зберегти вибір і результат</button>
   <button onclick="resetAll()">♻️ Скинути все</button>
 </div>
+<div id="toast" class="toast"></div>
 
 <div id="results"></div>
 
@@ -162,8 +163,8 @@
 
 
   <script>
-    const owlImage = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAABGklEQVR42u3RMQ0AIAwDsPS9n3OIIuNSEaoN+5mAYWLpmjHtkobaN6D+PfYZ7R6puj949iFDUFVNQVVNQVVNQVVNQVVNQVVNQVVNQVVNQVVNQVVNQVVNQVVNQVVNQVVNQVVNQVVNQVVNQVVNQVVNQVVNQVVNQVVNQVVNQVVNQVVNQVVNQVVNQVVNQVVNQVVNQVVNQVVNQVVNQVVNQVVNQVVNQVVNQVVNQVVNQVVNQVVNQVVNQVVNQVVNQVVNQVVNQVVNQVVNQVVNQVVNQVVNQVVNQVVNQVVNQfWcA6i/K3PaY5E9AAAAAElFTkSuQmCC';
-    const larkImage = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAABCUlEQVR42u3SMQ0AAAjDMO5fNMbIRB+ez1srO2Qd6hw2yffA9H9nS3FoZT3zh0FAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAMD+EBe6A1u9IiMaAAAAAElFTkSuQmCC';
+    const owlImage = 'https://cdn-icons-png.flaticon.com/512/616/616408.png';
+    const larkImage = 'https://cdn-icons-png.flaticon.com/512/616/616490.png';
 
     function toggleInput() {
       const mode = document.getElementById('mode').value;
@@ -272,7 +273,47 @@ window.onload = () => {
   showSaved();
 };
 
+function showToast(message) {
+  const toast = document.getElementById('toast');
+  toast.textContent = message;
+  toast.classList.add('show');
 
+  setTimeout(() => {
+    toast.classList.remove('show');
+  }, 3000);
+}
+
+function showToast(message, reloadAfter = false) {
+  const toast = document.getElementById('toast');
+  toast.textContent = message;
+  toast.classList.add('show');
+
+  setTimeout(() => {
+    toast.classList.remove('show');
+    if (reloadAfter) {
+      location.reload();
+    }
+  }, 2000);
+}
+
+
+function saveAll() {
+  const mode = document.getElementById('mode').value;
+  const time = document.getElementById('timeInput').value;
+  const results = document.getElementById('results').innerHTML;
+
+  if (!time || !results) {
+    alert('Спочатку заповни час і натисни "Порахувати".');
+    return;
+  }
+
+  localStorage.setItem('sleepMode', mode);
+  localStorage.setItem('sleepTime', time);
+  localStorage.setItem('sleepResults', results);
+
+  showSaved();
+  showToast('✅ Вибір і результат збережено!', true);
+}
 
   </script>
 </body>

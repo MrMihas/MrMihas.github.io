@@ -139,7 +139,7 @@
 </div>
 
 <img id="modeImage" src="" alt="Режим">
-  <label>Що обчислюємо:</label>
+  <label>, що обчислюємо:</label>
 <!-- <span class="iconify" data-icon="mdi:owl" data-width="36"></span> -->
 <select id="mode" onchange="toggleInput()">
   <option value="sleep">Я лягаю спати</option>
@@ -177,7 +177,7 @@
       document.getElementById('timeLabel').innerText = mode === 'sleep' ? 'Час засинання:' : 'Час пробудження:';
       document.getElementById('results').innerHTML = '';
       // document.getElementById('modeImage').src = mode === 'sleep' ? owlImage : larkImage;
-      document.getElementById('modeImage').alt = mode === 'sleep' ? 'Сова' : 'Жайворонок';
+      // document.getElementById('modeImage').alt = mode === 'sleep' ? 'Сова' : 'Жайворонок';
     }
 
     function calculate() {

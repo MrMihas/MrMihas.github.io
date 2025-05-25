@@ -588,179 +588,87 @@ clearTimeout(notific);
 
 
 
-
-    //calendar
-
-    var fecha = new Date();
-
-
-
-
-
-	function mostrarCalendario(year,month) {
-
-
-
-		// variables
-
-		var ahora = new Date(year,month-1,1);
-
-		var ultimo = new Date(year,month,0);
-
-		var primer_dia_semana = (ahora.getDay()==0)?7:ahora.getDay();
-
-		var ultimo_dia_mes = ultimo.getDate();
-
-		var dia = 0;
-
-		var resultado = "<tr>";
-
-		var dia_actual = 0;
-
- 
-
-		var ultima_celda = primer_dia_semana + ultimo_dia_mes;
-
-
-
-		for(var i = 1; i <= 42; i++) {
-
-
-
-			// El dia que empieza la semana
-
-			if(i == primer_dia_semana) {
-
-				dia = 1;
-
-			}
-
-
-
-
-
-			if(i < primer_dia_semana || i >= ultima_celda) {
-
-				// celda vacia
-
-				resultado+="<td class='empty'>&nbsp;</td>";
-
-			}
-
-			else {
-
-
-
-				// mostramos el dia
-
-				if
-
-					(dia == fecha.getDate() && month == fecha.getMonth() + 1 && year == fecha.getFullYear())
-
-					resultado += "<td class='hoy'>" + dia + "</td>";
-
-				else
-
-					resultado += "<td>" + dia + "</td>";
-
-					dia++;
-
-			}
-
-			
-
-			if(i % 7 == 0) {
-
-				if(dia > ultimo_dia_mes)
-
-				break;
-
-				resultado += "</tr><tr>\n";
-
-			}
-
-		}
-
-
-
-
-
-		resultado += "</tr>";
-
- 
-
- 		// Meses
-
-		var meses=Array(
-
-			"Enero",
-
-			"Febrero",
-
-			"Marzo",
-
-			"Abril",
-
-			"Mayo",
-
-			"Junio",
-
-			"Julio",
-
-			"Agosto",
-
-			"Septiembre",
-
-			"Octubre",
-
-			"Noviembre",
-
-			"Diciembre"
-
-		);
-
- 
-
-		// Calculamos el siguiente mes y año
-
-		nextMonth = month + 1;
-
-		nextYear = year;
-
-		if (month + 1 > 12) {
-
-			nextMonth = 1;
-
-			nextYear = year + 1;
-
-		}
-
-	 
-
-		// Calculamos el anterior mes y año
-
-		prevMonth = month - 1;
-
-		prevYear = year;
-
-		if(month - 1 < 1) {
-
-			prevMonth = 12;
-
-			prevYear = year - 1;
-
-		}
-
- 
-
-		
-
-		document.getElementById("calendar").getElementsByTagName("tbody")[0].innerHTML=resultado;
-
-	}
-
- 
-
-	mostrarCalendario(fecha.getFullYear(),fecha.getMonth()+1);  
-
-
+function renderCalendar(year, month, tbody, endDateStr) {
+  const months = [
+    "Січень","Лютий","Березень","Квітень","Травень","Червень",
+    "Липень","Серпень","Вересень","Жовтень","Листопад","Грудень"
+  ];
+
+  const now = new Date();
+  const startDay = new Date(year, month, 1).getDay() || 7;
+  const daysInMonth = new Date(year, month + 1, 0).getDate();
+  const endDate = endDateStr ? new Date(endDateStr) : null;
+
+  let day = 1, html = "<tr>";
+
+  for (let i = 1; i <= 42; i++) {
+    if (i < startDay || day > daysInMonth) {
+      html += "<td class='empty'>&nbsp;</td>";
+    } else {
+      const cellDate = new Date(year, month, day);
+      let classes = [];
+
+      if (
+        now.getDate() === day &&
+        now.getMonth() === month &&
+        now.getFullYear() === year
+      ) {
+        classes.push("today");
+      }
+
+      if (
+        endDate &&
+        cellDate.getDate() === endDate.getDate() &&
+        cellDate.getMonth() === endDate.getMonth() &&
+        cellDate.getFullYear() === endDate.getFullYear()
+      ) {
+        classes.push("finish-day");
+      }
+
+      html += `<td class="${classes.join(" ")}">${day}</td>`;
+      day++;
+    }
+
+    if (i % 7 === 0) html += "</tr><tr>";
+  }
+
+  html += "</tr>";
+
+  tbody.innerHTML = html;
+  document.querySelector(".month-name").textContent = `${months[month]} ${year}`;
+}
+
+function setupCalendarNavigation() {
+  const now = new Date();
+  let year = now.getFullYear();
+  let month = now.getMonth();
+  const tbody = document.querySelector("#calendar tbody");
+
+  // Дістаємо стартову дату і кількість днів
+  const savedDays = +localStorage.getItem("days");
+  const startDay = +localStorage.getItem("date");
+  const startMonth = now.getMonth();
+  const startYear = now.getFullYear();
+
+  let endDateStr = null;
+
+  if (savedDays) {
+    const endDate = new Date(startYear, startMonth, startDay);
+    endDate.setDate(endDate.getDate() + savedDays - 1);
+    endDateStr = endDate.toISOString();
+  }
+
+  renderCalendar(year, month, tbody, endDateStr);
+
+  document.querySelector(".prev").onclick = () => {
+    if (month === 0) { month = 11; year--; } else month--;
+    renderCalendar(year, month, tbody, endDateStr);
+  };
+
+  document.querySelector(".next").onclick = () => {
+    if (month === 11) { month = 0; year++; } else month++;
+    renderCalendar(year, month, tbody, endDateStr);
+  };
+}
+
+setupCalendarNavigation();

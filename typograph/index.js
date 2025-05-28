@@ -1,286 +1,97 @@
+const checkingText = document.querySelector(".text");
+const btn = document.querySelector(".btn");
+const copy = document.querySelector(".copy");
+const deleteText = document.querySelector(".deleteText");
 
-let checkingText = document.querySelector(".text");
-
-let btn = document.querySelector(".btn");
-let copy = document.querySelector(".copy");
-let deleteText = document.querySelector(".deleteText");
-
-
-checkingText.addEventListener('input', ()=>{
-    
-    btn.removeAttribute('disabled');
-    checkingText.classList.remove('access');
-    checkingText.classList.remove('access-copy');
-
-});
-
-checkingText.addEventListener('change', ()=>{
-    
-    btn.removeAttribute('disabled');
-    checkingText.classList.remove('access');
-    checkingText.classList.remove('access-copy');
-
-});
-
-function startText(){
-    btn.removeAttribute('disabled');
-    
+// Універсальна функція для заміни тексту по шаблону
+function replaceAll(text, search, replace) {
+  return text.replaceAll(search, replace);
 }
 
-btn.addEventListener("click", () => {
-    germanLeft();
-});
+// Ланцюг замін лапок
+function processText() {
+  let text = " " + checkingText.value;
 
-// форматирование по комбинации клавиш
+  const replacements = [
+    { from: "„", to: " «" },
+    { from: "“", to: "»" },
+    { from: " “", to: " «" },
+    { from: "”", to: "»" },
+    { from: '"', to: "»" },
+    { from: '("', to: '«' },
+    { from: '\n»', to: '\n«' },
+    { from: ' »', to: ' «' },
+    { from: '(»', to: '(«' },
+  ];
 
-function formatedText(func, ...codes) {
-      let pressed = new Set();
+  replacements.forEach(({ from, to }) => {
+    text = replaceAll(text, from, to);
+  });
 
-      document.addEventListener('keydown', function(event) {
-        pressed.add(event.code);
-        
+  checkingText.value = text.trim();
+  checkingText.classList.add("access");
+  copy.classList.remove("hidden");
+}
 
-        for (let code of codes) { // все ли клавиши из набора нажаты?
-          if (!pressed.has(code)) {
-            return;
-          }
-        }
-
-       pressed.clear();
-
-        func();
-      });
-
-      document.addEventListener('keyup', function(event) {
-        pressed.delete(event.code);
-      });
-
+// Універсальний биндер комбінацій клавіш
+function bindShortcut(func, ...codes) {
+  const pressed = new Set();
+  document.addEventListener("keydown", (e) => {
+    pressed.add(e.code);
+    if (codes.every((code) => pressed.has(code))) {
+      pressed.clear();
+      func();
     }
-
-    formatedText(
-      () => germanLeft(),
-      "ControlLeft",
-      "KeyX"
-    );
-
-
-
-
-
-
-
-//german
-
-function germanLeft(){
-    const search = "„";
-    const replaceWith = ' «';
-    let str = " " + checkingText.value ;
-    const result = str.replaceAll(search, replaceWith);
-    germanRight(result);
+  });
+  document.addEventListener("keyup", (e) => pressed.delete(e.code));
 }
 
-function germanRight(text) {
-    search = "“";
-    replaceWith = '»';
-    result = text.replaceAll(search, replaceWith);
-    englandLeft(result);
+// Копіювання тексту в буфер обміну
+function copyText() {
+  const text = checkingText.value;
+  if (!text) return;
+
+  navigator.clipboard.writeText(text);
+  copy.setAttribute("value", "Скопійовано");
+  copy.setAttribute("disabled", "true");
+  checkingText.classList.add("access-copy");
+
+  setTimeout(() => {
+    copy.setAttribute("value", "Копіювати");
+    copy.removeAttribute("disabled");
+  }, 2000);
 }
 
-//england
-function englandLeft(text){
-    const search = " "+"“";
-    const replaceWith = ' «';
-    let str = " " + text ;
-    const result = str.replaceAll(search, replaceWith);
-    englandRight(result);
+// Очищення текстового поля
+function clearText() {
+  checkingText.style.minHeight = "";
+  checkingText.value = "";
+  pasted.innerHTML = 0;
+  checkingText.classList.remove("access", "access-copy");
+  checkingText.setAttribute("placeholder", "Введіть текст");
+  copy.classList.add("hidden");
 }
 
-function englandRight(text) {
-    search = "”";
-    replaceWith = '»';
-    result = text.replaceAll(search, replaceWith);
-    next(result);
+// Активувати кнопку при зміні тексту
+function activateButton() {
+  btn.removeAttribute("disabled");
+  checkingText.classList.remove("access", "access-copy");
 }
 
-function next(text) {
-    search = '\"';
-    replaceWith = '»';
-    result = text.replaceAll(search, replaceWith);
-    next2(result);
-}
+// Події
+checkingText.addEventListener("input", activateButton);
+checkingText.addEventListener("change", activateButton);
+btn.addEventListener("click", processText);
+copy.addEventListener("click", copyText);
+deleteText.addEventListener("click", clearText);
 
-function next2(text) {
-    search = '("';
-    replaceWith = '«';
-    result = text.replaceAll(search, replaceWith);
-    reverseSymbol(result);
-}
+// Гарячі клавіші
+bindShortcut(processText, "ControlLeft", "KeyX");
+bindShortcut(copyText, "ControlLeft", "KeyC");
+bindShortcut(clearText, "ControlLeft", "KeyQ");
 
-
-
-
-function reverseSymbol(text) {
-    var search = ['\n' + "»"];
-    const replaceWith = ['\n' +'«']; // новий рядок
-    const result = text.replaceAll(search, replaceWith);
-    reverseSymbol2(result);
-}
-
-function reverseSymbol2(text) {
-    var search = [' ' + "»"];
-    const replaceWith = [' ' +'«'];
-    const result = text.replaceAll(search, replaceWith);
-    lastCheck(result);
-}
-
-function lastCheck(text){
-   let search = ['(' + "»"];
-   const replaceWith = ['('+'«'];
-   const result = text.replaceAll(search, replaceWith);
-   let checkingText = document.querySelector(".text");
-    checkingText.value = result.trim();
-    checkingText.classList.add('access');
-    copy.classList.remove("hidden");
-}
-
-
-
-
-
-copy.addEventListener('click', function () {
-    let copyText = checkingText.value;
-        if (copyText === '')        return;
-        
-navigator.clipboard.writeText(copyText);
-    copy.setAttribute('value', 'Скопійовано');
-    copy.setAttribute('disabled', 'true');
-    checkingText.classList.add('access-copy');
-    setTimeout(() => {
-        copy.setAttribute('value', 'Копіювати');
-        copy.removeAttribute('disabled');
-    }, 2000);
-});
-
-
-//копирование по комбинации
-function copiedFormatedText(func, ...codes) {
-      let pressed = new Set();
-
-      document.addEventListener('keydown', function(event) {
-        pressed.add(event.code);
-        
-     
-
-        for (let code of codes) { // все ли клавиши из набора нажаты?
-          if (!pressed.has(code)) {
-            return;
-          }
-        }
-
-       pressed.clear();
-
-        func();
-      });
-
-      document.addEventListener('keyup', function(event) {
-        pressed.delete(event.code);
-      });
-
-    }
-
-    copiedFormatedText(
-      () => copiedText(),
-      "ControlLeft",
-      "KeyC"
-    );
-
-
-
-function copiedText(){
-    let copyText = checkingText.value;
-        if (copyText === '')        return;
-    
-        
-    navigator.clipboard.writeText(copyText);
-        copy.setAttribute('value', 'Скопійовано');
-        copy.setAttribute('disabled', 'true');
-        checkingText.classList.add('access-copy');
-        setTimeout(() => {
-            copy.setAttribute('value', 'Копіювати');
-            copy.removeAttribute('disabled');
-        }, 2000);
-}
-
-
-
-
-deleteText.addEventListener('click', ()=>{
-    checkingText.style.minHeight = '';
-    pasted.innerHTML = 0;
-    checkingText.value = '';
-    if(checkingText.value === ''){
-        checkingText.classList.remove('access');
-        checkingText.classList.remove('access-copy');
-        checkingText.setAttribute('placeholder', 'Введіть текст');
-        copy.classList.add("hidden");
-    }
-})
-
-
-//удаление по комбинации клавиш
-
-function clearArea(func, ...codes) {
-      let pressed = new Set();
-
-      document.addEventListener('keydown', function(event) {
-        pressed.add(event.code);
-        
-
-        for (let code of codes) { // все ли клавиши из набора нажаты?
-          if (!pressed.has(code)) {
-            return;
-          }
-        }
-
-       pressed.clear();
-
-        func();
-      });
-
-      document.addEventListener('keyup', function(event) {
-        pressed.delete(event.code);
-      });
-
-    }
-
-    clearArea(
-      () => deletedText(),
-      "ControlLeft",
-      "KeyQ"
-    );
-
-
-
-
-
-function deletedText(){
-        checkingText.style.minHeight = '';
- checkingText.value = '';
-     pasted.innerHTML = 0;
-    if(checkingText.value === ''){
-        checkingText.classList.remove('access');
-        checkingText.classList.remove('access-copy');
-        checkingText.setAttribute('placeholder', 'Введіть текст');
-        copy.classList.add("hidden");
-    }}
-
-
-document.onblur = function(){
-    document.title = "«😳» ЗАМІНА "
-}
-
-
-document.onfocus = function(){
-    document.title = "Заміна лапок на ялинки онлайн || Замінити лапки|| замінити лапки на ялинки онлайн";
-}
-
+// Зміна заголовка вкладки
+document.onblur = () => (document.title = "«😳» ЗАМІНА");
+document.onfocus = () =>
+  (document.title =
+    "Заміна лапок на ялинки онлайн || Замінити лапки|| замінити лапки на ялинки онлайн");

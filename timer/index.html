@@ -1,172 +1,239 @@
-<html lang="en"><head>
-	<meta charset="UTF-8">
-	<title>Document</title>
-	<link rel="stylesheet" href="css/style.css">
-
-    <style>
-        .wrap{
-	width: 200px;
-  background: #222;
- display: block;
- text-align: center;
- position: absolute;
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>WebP Converter</title>
+<style>
+body { font-family: Arial; padding: 20px; }
+.container { max-width: 700px; margin: auto; }
+.drop {
+  border: 2px dashed #aaa;
+  padding: 40px;
+  text-align: center;
+  margin-bottom: 20px;
 }
-p{
-	color:#fff;
-	
-}
-
-canvas{
-	margin-left: 20px;
-}
-
-
-    </style>
+button { padding: 10px 20px; cursor: pointer; }
+img { width: 80px; margin: 5px; }
+#preview { display: flex; flex-wrap: wrap; }
+</style>
 </head>
+
 <body>
-	
+<div class="container">
 
-<div class="wrap">
-<p>До кемпа осталось:</p>
+<h2>JPEG/PNG → WebP Converter</h2>
 
-<canvas id="countdown-timer" width="200" height="120"></canvas>
+<div class="drop" id="drop">
+Drop images here or click to select
+<input type="file" id="fileInput" multiple accept="image/*" hidden>
 </div>
-<script src="js/active.js"></script>
+	
+	<label>
+    <input type="radio" name="filenameMode" value="original" >
+    Keep original filename
+</label>
 
-</body>
+<label>
+    <input type="radio" name="filenameMode" value="random" checked>
+    Generate unique filename
+</label>
+<br><br>
 
-<script>
+<label>Quality: <span id="qVal">0.8</span></label>
+<input type="range" id="quality" min="0.1" max="1" step="0.1" value="0.8">
 
-var canvas = document.getElementById('countdown-timer');
+<br><br>
 
-var Timer = (function() {
-  var ctx = null,
-    init = null,
-    draw = null,
-    go = null;
-  var param = {
-    countdownTo: '2021/01/01', 
-    ringWidth: 100, 
-    ringHeight: 100, 
-    padding: 4,
-    radius: 50, 
-    lineWidth: 4, 
-    updateInterval: 20, 
-    numberText: {
-      fontsize: 40,
-      color: '#FCF'
-    }, 
-    unitText: {
-      fontsize: 16,
-      color: '#0FF'
-    }, 
-    circleOuterColor: 'rgba(0, 255, 0, 1)', 
-    circleInnerColor: 'rgba(0, 128, 0, 0.4)',
-    rings: {
-      "DAYS": {
-        max: 365,
-        ms: 86400000
-      },
-      "HOURS": {
-        max: 24,
-        ms: 3600000
-      },
-      "MINS": {
-        max: 60,
-        ms: 60000
-      },
-      "SECS": {
-        max: 60,
-        ms: 1000
-      },
-      
-    }, 
-    time: 0 
-  };
-  //初始化設定
-  init = function(canvas) {
-      if (canvas.nodeName != 'CANVAS') {
+<button id="convertBtn">Convert & Download ZIP</button>
+
+<div id="preview"></div>
+
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+<script >
+const fileInput = document.getElementById('fileInput');
+const drop = document.getElementById('drop');
+const preview = document.getElementById('preview');
+const qualitySlider = document.getElementById('quality');
+const qVal = document.getElementById('qVal');
+const convertBtn = document.getElementById('convertBtn');
+
+let files = [];
+
+// UI init
+qVal.textContent = qualitySlider.value;
+
+qualitySlider.addEventListener('input', () => {
+    qVal.textContent = qualitySlider.value;
+});
+
+// open file picker
+drop.addEventListener('click', () => fileInput.click());
+
+// drag over
+drop.addEventListener('dragover', (e) => e.preventDefault());
+
+// drop handler
+drop.addEventListener('drop', (e) => {
+    e.preventDefault();
+    setFiles(e.dataTransfer.files);
+});
+
+// file input change
+fileInput.addEventListener('change', () => {
+    setFiles(fileInput.files);
+});
+
+
+// =======================
+// FILE HANDLING
+// =======================
+
+function setFiles(selectedFiles) {
+    files = Array.from(selectedFiles).filter(file =>
+        ['image/jpeg', 'image/png', 'image/jpg'].includes(file.type)
+    );
+
+    if (!files.length) {
+        alert("Only JPG and PNG files are allowed");
         return;
-      }
-      ctx = canvas.getContext('2d');
-      param.ringWidth = Math.floor(canvas.width / 5); //把canvas分5等分
-      canvas.height = param.ringHeight = param.ringWidth; //重設canvas高度 = 每等分寬度
-      param.radius = Math.floor((param.ringWidth - param.padding - param.lineWidth) / 2); //計算圓圈半徑
-      param.numberText.fontsize = Math.floor(param.ringWidth / 3) //計算數字字體大小
-      param.unitText.fontsize = Math.floor(param.ringWidth / 9) //計算文字字體大小
-
-      ctx.textAlign = "center"; //所有canvas中的Text都置中顯示
-    }
-    //畫圓圈
-  draw = function(index, text, data) {
-      var cx = param.ringWidth * 0.5,
-        cy = param.ringHeight * 0.5,
-        number = param.time / data.ms;
-      deg = 1 - number / data.max;
-
-      param.time -= Math.floor(number) * data.ms;
-
-      ctx.save();
-
-      ctx.translate(param.ringWidth * index, 0);
-      ctx.clearRect(0, 0, param.ringWidth, param.ringHeight);
-
-      ctx.translate(cx, cy); //canvas中心座標移到圓心
-
-      //畫背景圓圈
-      ctx.strokeStyle = param.circleInnerColor;
-      ctx.beginPath();
-      ctx.arc(0, 0, param.radius, 0, 2 * Math.PI, true);
-      ctx.lineWidth = param.lineWidth;
-      ctx.stroke();
-
-      //外圈
-      ctx.strokeStyle = param.circleOuterColor;
-      ctx.beginPath();
-      ctx.arc(0, 0, param.radius, 0, deg * 2 * Math.PI, true);
-
-      ctx.stroke();
-
-      //文字
-
-      ctx.font = param.unitText.fontsize + "pt Helvetica";
-      ctx.fillStyle = param.unitText.color;
-      ctx.fillText(text, 0, param.unitText.fontsize * 2.5);
-      //數字
-      ctx.fillStyle = param.numberText.color;
-      ctx.font = "bold " + param.numberText.fontsize + "pt Helvetica";
-      ctx.fillText(Math.floor(number), 0, param.numberText.fontsize / 4);
-
-      ctx.restore();
-    }
-    //開始運作
-  go = function() {
-    var index = 0,
-      countdownToTime = new Date(param.countdownTo).getTime();
-
-    param.time = countdownToTime - new Date().getTime();
-    param.time = param.time > 0 ? param.time : 0;
-
-   
-    for (var key in param.rings) {
-      draw(index++, key, param.rings[key]);
     }
 
-   
-    setTimeout(go, param.updateInterval);
-  }
+    renderPreview(files);
+}
 
-  return {
-    init: init,
-    go: go
-  };
+function renderPreview(files) {
+    preview.innerHTML = '';
 
-}())
+    files.forEach((file) => {
+        const img = document.createElement('img');
+        const url = URL.createObjectURL(file);
 
-Timer.init(canvas);
-Timer.go();
+        img.src = url;
+        img.onload = () => URL.revokeObjectURL(url);
+
+        preview.appendChild(img);
+    });
+}
 
 
+// =======================
+// CONVERT + ZIP
+// =======================
+
+convertBtn.addEventListener('click', async () => {
+    try {
+        if (!files.length) {
+            alert("No files selected");
+            return;
+        }
+
+        const zip = new JSZip();
+        const quality = parseFloat(qualitySlider.value);
+        const batchId = generateBatchId();
+
+        const mode = getFileNameMode();
+
+        for (let i = 0; i < files.length; i++) {
+            const webpBlob = await convertToWebP(files[i], quality);
+
+            if (!webpBlob) continue;
+
+            const newName = generateFileName(files[i], i, batchId, mode);
+
+            zip.file(newName, webpBlob);
+        }
+
+        const zipBlob = await zip.generateAsync({ type: "blob" });
+        saveAs(zipBlob, "converted_images.zip");
+
+    } catch (err) {
+        console.error("ZIP ERROR:", err);
+        alert("Conversion failed. Check console.");
+    }
+});
+
+
+// =======================
+// FILE NAME MODE
+// =======================
+
+function getFileNameMode() {
+    const el = document.querySelector('input[name="filenameMode"]:checked');
+    return el ? el.value : 'random';
+}
+
+function generateFileName(file, index, batchId, mode) {
+    if (mode === 'original') {
+        const base = file.name.replace(/\.[^/.]+$/, '');
+        return `${base}.webp`;
+    }
+
+    const seq = String(index + 1).padStart(4, '0');
+    const rand = randomString(8);
+
+    return `${batchId}_${seq}_${rand}.webp`;
+}
+
+
+// =======================
+// HELPERS
+// =======================
+
+function generateBatchId() {
+    return Date.now().toString(36);
+}
+
+function randomString(len = 8) {
+    const chars = "abcdefghijklmnopqrstuvwxyz0123456789";
+    let out = "";
+
+    for (let i = 0; i < len; i++) {
+        out += chars[Math.floor(Math.random() * chars.length)];
+    }
+
+    return out;
+}
+
+
+// =======================
+// CONVERT
+// =======================
+
+function convertToWebP(file, quality) {
+    return new Promise((resolve) => {
+        const img = new Image();
+        const url = URL.createObjectURL(file);
+
+        img.onload = () => {
+            const canvas = document.createElement('canvas');
+            const ctx = canvas.getContext('2d');
+
+            canvas.width = img.width;
+            canvas.height = img.height;
+
+            ctx.imageSmoothingEnabled = true;
+            ctx.imageSmoothingQuality = "high";
+
+            ctx.drawImage(img, 0, 0);
+
+            canvas.toBlob((blob) => {
+                URL.revokeObjectURL(url);
+                resolve(blob);
+            }, 'image/webp', quality);
+        };
+
+        img.onerror = () => {
+            URL.revokeObjectURL(url);
+            resolve(null);
+        };
+
+        img.src = url;
+    });
+}
+	
 </script>
+</body>
 </html>

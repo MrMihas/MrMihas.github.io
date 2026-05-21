@@ -2,7 +2,7 @@ const checkingText = document.querySelector(".text");
 const btn = document.querySelector(".btn");
 const copy = document.querySelector(".copy");
 const deleteText = document.querySelector(".deleteText");
-const pasted = document.querySelector(".pasted"); // Додав селектор про всяк випадок
+
 
 // Оптимізований процес заміни за допомогою Регулярних виразів
 function processText() {

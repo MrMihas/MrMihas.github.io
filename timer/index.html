@@ -1,75 +1,99 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="uk">
 <head>
     <meta charset="UTF-8">
-    <title>Universal Image Converter & Compressor</title>
-    <style>
-        body { font-family: Arial, sans-serif; padding: 20px; background-color: #f9f9f9; }
-        .container { max-width: 700px; margin: auto; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Конвертер Зображень Онлайн — Безкоштовно WebP, JPEG, PNG</title>
+    <meta name="description" content="Зручний та швидкий онлайн-конвертер зображень. Масове стиснення та конвертація фото в формати WebP, JPEG, PNG із налаштуванням якості без втрати швидкості. Завантаження в ZIP.">
+    <meta name="keywords" content="конвертер зображень, конвертувати в webp, стиснути фото онлайн, jpeg в webp, png в webp, зменшити розмір фото, масова конвертація зображень">
+    <meta name="robots" content="index, follow">
+    
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Конвертер Зображень Онлайн — Швидко та Безкоштовно">
+    <meta property="og:description" content="Масова конвертація та оптимізація картинок у WebP, JPG, PNG прямо в браузері. Зберігайте файли одним ZIP-архівом.">
+    <meta property="og:image" content="https://yourdomain.com/assets/og-image.jpg"> <style>
+        body { font-family: Arial, sans-serif; padding: 20px; background-color: #f9f9f9; color: #333; }
+        .container { max-width: 700px; margin: auto; background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
         .drop {
-            border: 2px dashed #aaa;
-            padding: 40px;
-            text-align: center;
-            margin-bottom: 20px;
-            cursor: pointer;
-            background: #fafafa;
-            transition: background 0.2s;
+          border: 2px dashed #aaa;
+          padding: 40px;
+          text-align: center;
+          margin-bottom: 20px;
+          cursor: pointer;
+          background: #fafafa;
+          transition: border-color 0.2s, background-color 0.2s;
         }
-        .drop:hover { background: #f0f0f0; }
-        button { padding: 10px 20px; cursor: pointer; background-color: #007bff; color: white; border: none; border-radius: 4px; font-weight: bold; }
-        button:hover { background-color: #0056b3; }
-        button:disabled { background-color: #cccccc; cursor: not-allowed; }
-        img { width: 80px; height: 80px; object-fit: cover; margin: 5px; border-radius: 4px; border: 1px solid #ddd; }
+        .drop:hover { border-color: #666; background-color: #f5f5f5; }
+        button { padding: 10px 20px; cursor: pointer; font-weight: bold; }
+        button:disabled { background-color: #cccccc; cursor: not-allowed; color: #666; }
+        img { width: 80px; margin: 5px; border-radius: 4px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
         #preview { display: flex; flex-wrap: wrap; margin-top: 15px; }
+
+        /* Стилі для нових блоків керування та відступів */
         .control-group { margin-bottom: 15px; }
-        label { font-weight: bold; margin-right: 10px; }
-        select, input[type="range"] { vertical-align: middle; }
+        .control-group label { font-weight: bold; margin-right: 10px; }
+        select, input[type="range"] { vertical-align: middle; padding: 5px; }
+        .radio-group { margin-bottom: 15px; }
+        .radio-group label { font-weight: normal; margin-right: 15px; cursor: pointer; }
+        h1 { font-size: 24px; margin-top: 0; margin-bottom: 20px; }
     </style>
 </head>
 
 <body>
-<div class="container">
+<main class="container">
 
-    <h2>Image Converter & Compressor</h2>
+    <header>
+        <h1>JPEG / PNG / WebP Онлайн Конвертер</h1>
+    </header>
 
-    <div class="drop" id="drop">
-        Drop images here or click to select
-        <input type="file" id="fileInput" multiple accept="image/jpeg, image/png, image/webp" hidden>
-    </div>
+    <section aria-label="Завантаження зображень">
+        <div class="drop" id="drop" role="button" aria-label="Перетягніть сюди файли або клікніть для вибору">
+            Drop images here or click to select
+            <input type="file" id="fileInput" multiple accept="image/jpeg, image/png, image/jpg, image/webp" hidden>
+        </div>
+    </section>
     
-    <div class="control-group">
-        <label>Filename Mode:</label>
-        <label><input type="radio" name="filenameMode" value="original" checked> Keep original filename</label>
-        <label><input type="radio" name="filenameMode" value="random"> Generate unique filename</label>
-    </div>
+    <section class="radio-group" aria-label="Налаштування імен файлів">
+        <label>
+            <input type="radio" name="filenameMode" value="original" >
+            Keep original filename
+        </label>
+        <label>
+            <input type="radio" name="filenameMode" value="random" checked>
+            Generate unique filename
+        </label>
+    </section>
 
-    <div class="control-group">
-        <label for="formatSelect">Output Format:</label>
+    <section class="control-group" aria-label="Вибір формату">
+        <label for="formatSelect">Output Format: </label>
         <select id="formatSelect">
             <option value="image/webp">WebP</option>
             <option value="image/jpeg">JPEG</option>
             <option value="image/png">PNG (Lossless)</option>
         </select>
-    </div>
+    </section>
 
-    <div class="control-group" id="qualityGroup">
-        <label>Quality: <span id="qVal">0.8</span></label>
+    <section class="control-group" id="qualityGroup">
+        <label for="quality">Quality: <span id="qVal">0.8</span></label>
         <input type="range" id="quality" min="0.1" max="1" step="0.1" value="0.8">
-    </div>
+    </section>
 
     <br>
-    <button id="convertBtn">Convert & Download ZIP</button>
 
-    <div id="preview"></div>
+    <footer>
+        <button id="convertBtn">Convert & Download ZIP</button>
+        <output id="preview"></output>
+    </footer>
 
-</div>
+</main>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
 
 <script>
 // =======================
-// UI & ЕЛЕМЕНТИ КЕРУВАННЯ
+// UI INIT & ELEMENTS
 // =======================
 const fileInput = document.getElementById('fileInput');
 const drop = document.getElementById('drop');
@@ -82,14 +106,14 @@ const qualityGroup = document.getElementById('qualityGroup');
 
 let files = [];
 
-// Ініціалізація відображення якості
+// Стан UI
 qVal.textContent = qualitySlider.value;
 
 qualitySlider.addEventListener('input', () => {
     qVal.textContent = qualitySlider.value;
 });
 
-// Скрипт приховування повзунка якості для PNG
+// Керування відображенням повзунка для PNG
 formatSelect.addEventListener('change', () => {
     if (formatSelect.value === 'image/png') {
         qualityGroup.style.display = 'none';
@@ -98,7 +122,7 @@ formatSelect.addEventListener('change', () => {
     }
 });
 
-// Кліки та Drag'n'Drop події
+// Обробники кліків та Drag-and-Drop
 drop.addEventListener('click', () => fileInput.click());
 drop.addEventListener('dragover', (e) => e.preventDefault());
 drop.addEventListener('drop', (e) => {
@@ -114,7 +138,6 @@ fileInput.addEventListener('change', () => {
 // ОБРОБКА ФАЙЛІВ
 // =======================
 function setFiles(selectedFiles) {
-    // Дозволяємо на вхід JPG, PNG та WebP
     files = Array.from(selectedFiles).filter(file =>
         ['image/jpeg', 'image/png', 'image/jpg', 'image/webp'].includes(file.type)
     );
@@ -135,6 +158,7 @@ function renderPreview(files) {
         const url = URL.createObjectURL(file);
 
         img.src = url;
+        img.alt = "Preview: " + file.name; // Важливо для доступності та SEO
         img.onload = () => URL.revokeObjectURL(url);
 
         preview.appendChild(img);
@@ -143,7 +167,7 @@ function renderPreview(files) {
 
 
 // =======================
-// КОНВЕРТАЦІЯ ТА СТВОРЕННЯ ZIP
+// CONVERT + ZIP
 // =======================
 convertBtn.addEventListener('click', async () => {
     try {
@@ -155,26 +179,21 @@ convertBtn.addEventListener('click', async () => {
         const zip = new JSZip();
         const quality = parseFloat(qualitySlider.value);
         
-        // Визначаємо обраний формат та розширення
         const targetMime = formatSelect.value; 
-        const targetExt = targetMime.split('/')[1]; 
+        const targetExt = targetMime.split('/')[1];
         
         const batchId = generateBatchId();
         const mode = getFileNameMode();
 
-        // Захист інтерфейсу (блокуємо кнопку на час обробки)
         convertBtn.disabled = true;
         convertBtn.textContent = "Converting...";
 
         for (let i = 0; i < files.length; i++) {
-            // Викликаємо універсальну функцію конвертації
             const blob = await convertToFormat(files[i], targetMime, quality);
 
             if (!blob) continue;
 
-            // Генеруємо ім'я файлу відповідно до обраного розширення
             const newName = generateFileName(files[i], i, batchId, mode, targetExt);
-
             zip.file(newName, blob);
         }
 
@@ -185,7 +204,6 @@ convertBtn.addEventListener('click', async () => {
         console.error("ZIP ERROR:", err);
         alert("Conversion failed. Check console.");
     } finally {
-        // Повертаємо кнопку в робочий стан
         convertBtn.disabled = false;
         convertBtn.textContent = "Convert & Download ZIP";
     }
@@ -201,7 +219,6 @@ function getFileNameMode() {
 }
 
 function generateFileName(file, index, batchId, mode, ext) {
-    // Коригуємо відображення розширення для jpeg
     const fileExt = ext === 'jpeg' ? 'jpg' : ext;
 
     if (mode === 'original') {
@@ -234,7 +251,7 @@ function randomString(len = 8) {
 
 
 // =======================
-// УНІВЕРСАЛЬНИЙ РУШІЙ КОНВЕРТАЦІЇ
+// UNIVERSAL CONVERT ENGINE
 // =======================
 function convertToFormat(file, mimeType, quality) {
     return new Promise((resolve) => {
@@ -248,17 +265,15 @@ function convertToFormat(file, mimeType, quality) {
             canvas.width = img.width;
             canvas.height = img.height;
 
-            // Налаштування для максимальної якості згладжування при рендерингу
             ctx.imageSmoothingEnabled = true;
             ctx.imageSmoothingQuality = "high";
 
             ctx.drawImage(img, 0, 0);
 
-            // Динамічно передаємо mimeType (image/webp, image/jpeg або image/png)
             canvas.toBlob((blob) => {
                 URL.revokeObjectURL(url);
                 resolve(blob);
-            }, mimeType, quality); 
+            }, mimeType, quality);
         };
 
         img.onerror = () => {

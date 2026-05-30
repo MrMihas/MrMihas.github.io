@@ -14,11 +14,10 @@
     <meta property="og:description" content="Масова конвертація та оптимізація картинок у WebP, JPG, PNG прямо в браузері. Зберігайте файли одним ZIP-архівом.">
     
     <style>
-        /* Сучасні CSS змінні для легкого керування кольорами */
         :root {
-            --bg-color: #0f172a; /* Глибокий темний преміальний фон для всього сайту */
+            --bg-color: #0f172a; 
             --card-bg: #ffffff;
-            --primary-color: #2563eb; /* Сучасний індиго-синій */
+            --primary-color: #2563eb; 
             --primary-hover: #1d4ed8;
             --text-main: #1e293b;
             --text-muted: #64748b;
@@ -45,15 +44,23 @@
         }
 
         h1 { 
-            font-size: 24px; 
+            font-size: 26px; 
             font-weight: 700;
             margin-top: 0; 
-            margin-bottom: 25px; 
+            margin-bottom: 10px; 
             text-align: center;
             letter-spacing: -0.5px;
         }
 
-        /* Стильна сучасна Drop зона */
+        /* Стилі для опису інструменту */
+        .app-description {
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 14px;
+            line-height: 1.5;
+            margin-bottom: 30px;
+        }
+
         .drop {
             border: 2px dashed #cbd5e1;
             padding: 50px 20px;
@@ -72,7 +79,6 @@
             color: var(--primary-color);
         }
 
-        /* Групування елементів інтерфейсу */
         .control-group { 
             margin-bottom: 20px; 
             padding-bottom: 15px;
@@ -91,7 +97,6 @@
             color: var(--text-main);
         }
 
-        /* Кастомізація селекту */
         select { 
             width: 100%;
             padding: 10px 12px; 
@@ -103,11 +108,8 @@
             cursor: pointer;
             transition: border-color 0.2s;
         }
-        select:focus {
-            border-color: var(--primary-color);
-        }
+        select:focus { border-color: var(--primary-color); }
 
-        /* Стильні радіо-кнопки у вигляді кастомних табів */
         .radio-group { 
             display: flex;
             gap: 10px;
@@ -132,7 +134,6 @@
             color: var(--primary-color);
         }
 
-        /* Повзунок якості */
         input[type="range"] { 
             width: 100%; 
             height: 6px;
@@ -156,7 +157,6 @@
             font-size: 13px;
         }
 
-        /* Кнопка дії */
         button { 
             width: 100%;
             padding: 14px; 
@@ -180,7 +180,6 @@
             transform: none;
         }
 
-        /* Попередній перегляд завантажених фото */
         #preview { 
             display: flex; 
             flex-wrap: wrap; 
@@ -196,6 +195,48 @@
             box-shadow: 0 2px 4px rgba(0,0,0,0.08); 
             border: 1px solid var(--border-color);
         }
+
+        /* Стилі для секції завантаження архіваторів */
+        .archiver-section {
+            margin-top: 35px;
+            padding-top: 25px;
+            border-top: 2px dashed var(--border-color);
+        }
+        .archiver-title {
+            font-size: 15px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: var(--text-main);
+        }
+        .archiver-text {
+            font-size: 13px;
+            color: var(--text-muted);
+            line-height: 1.4;
+            margin-bottom: 15px;
+        }
+        .archiver-links {
+            display: flex;
+            gap: 12px;
+        }
+        .archiver-btn {
+            flex: 1;
+            display: inline-block;
+            text-align: center;
+            background-color: #f1f5f9;
+            color: #334155;
+            padding: 10px;
+            font-size: 13px;
+            font-weight: 600;
+            text-decoration: none;
+            border-radius: 6px;
+            border: 1px solid #cbd5e1;
+            transition: all 0.2s;
+        }
+        .archiver-btn:hover {
+            background-color: #e2e8f0;
+            border-color: #94a3b8;
+            color: #0f172a;
+        }
     </style>
 </head>
 
@@ -204,6 +245,9 @@
 
     <header>
         <h1>Image Converter & Compressor</h1>
+        <p class="app-description">
+            Безкоштовний інструмент для швидкої пакетної конвертації фото. Завантажуйте зображення у форматі JPG, PNG або WebP, вибирайте бажаний вихідний формат, регулюйте стиснення та завантажуйте результат в один клік у зручному ZIP-архіві. Оптимізація відбувається прямо у вашому браузері — файли нікуди не завантажуються, що гарантує 100% конфіденційність.
+        </p>
     </header>
 
     <section aria-label="Завантаження зображень">
@@ -241,10 +285,21 @@
         <input type="range" id="quality" min="0.1" max="1" step="0.1" value="0.8">
     </section>
 
-    <footer>
+    <section>
         <button id="convertBtn">Convert & Download ZIP</button>
         <output id="preview"></output>
-    </footer>
+    </section>
+
+    <section class="archiver-section" aria-label="Завантаження архіваторів">
+        <h2 class="archiver-title">Не можете відкрити завантажений файл?</h2>
+        <p class="archiver-text">
+            Для вашої зручності та економії трафіку всі оброблені зображення упаковуються в один стиснений <strong>ZIP-архів</strong>. Якщо на вашому комп'ютері чи смартфоні немає вбудованої програми для розпакування таких архівів, ви можете безкоштовно завантажити один із популярних безпечних архіваторів за посиланнями нижче:
+        </p>
+        <div class="archiver-links">
+            <a href="https://www.7-zip.org/" target="_blank" rel="noopener nofollow" class="archiver-btn">Завантажити 7-Zip (Безкоштовно)</a>
+            <a href="https://www.win-rar.com/download.html" target="_blank" rel="noopener nofollow" class="archiver-btn">Завантажити WinRAR</a>
+        </div>
+    </section>
 
 </main>
 

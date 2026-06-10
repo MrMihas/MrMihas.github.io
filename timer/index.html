@@ -267,6 +267,18 @@
             Generate unique name
         </label>
     </section>
+	
+	<section class="radio-group" aria-label="Спосіб завантаження">
+    <label>
+        <input type="radio" name="downloadMode" value="zip" checked>
+        ZIP архів
+    </label>
+
+    <label>
+        <input type="radio" name="downloadMode" value="single">
+        Окремі файли
+    </label>
+</section>
 
     <section class="control-group" aria-label="Вибір формату">
         <label class="control-label" id="formatLabel" for="formatSelect">Output Format</label>
@@ -381,8 +393,19 @@ function renderPreview(files) {
 
 
 // =======================
-// CONVERT + ZIP
+// CONVERT + DOWNLOAD
 // =======================
+// Динамічна зміна тексту кнопки при зміні режиму завантаження
+document.querySelectorAll('input[name="downloadMode"]').forEach(radio => {
+    radio.addEventListener('change', () => {
+        if (getDownloadMode() === 'zip') {
+            convertBtn.textContent = "Convert & Download ZIP";
+        } else {
+            convertBtn.textContent = "Convert & Download Files";
+        }
+    });
+});
+
 convertBtn.addEventListener('click', async () => {
     try {
         if (!files.length) {
@@ -390,39 +413,88 @@ convertBtn.addEventListener('click', async () => {
             return;
         }
 
-        const zip = new JSZip();
         const quality = parseFloat(qualitySlider.value);
-        
-        const targetMime = formatSelect.value; 
+        const targetMime = formatSelect.value;
         const targetExt = targetMime.split('/')[1];
-        
+
         const batchId = generateBatchId();
         const mode = getFileNameMode();
+        const downloadMode = getDownloadMode();
 
         convertBtn.disabled = true;
-        convertBtn.textContent = "Converting...";
 
-        for (let i = 0; i < files.length; i++) {
-            const blob = await convertToFormat(files[i], targetMime, quality);
+        if (downloadMode === 'zip') {
+            convertBtn.textContent = "Creating ZIP...";
 
-            if (!blob) continue;
+            const zip = new JSZip();
 
-            const newName = generateFileName(files[i], i, batchId, mode, targetExt);
-            zip.file(newName, blob);
+            for (let i = 0; i < files.length; i++) {
+                const blob = await convertToFormat(
+                    files[i],
+                    targetMime,
+                    quality
+                );
+
+                if (!blob) continue;
+
+                const newName = generateFileName(
+                    files[i],
+                    index = i,
+                    batchId,
+                    mode,
+                    targetExt
+                );
+
+                zip.file(newName, blob);
+            }
+
+            const zipBlob = await zip.generateAsync({
+                type: "blob"
+            });
+
+            saveAs(zipBlob, "converted_images.zip");
+        }
+        else {
+            convertBtn.textContent = "Downloading files...";
+
+            for (let i = 0; i < files.length; i++) {
+                const blob = await convertToFormat(
+                    files[i],
+                    targetMime,
+                    quality
+                );
+
+                if (!blob) continue;
+
+                const newName = generateFileName(
+                    files[i],
+                    i,
+                    batchId,
+                    mode,
+                    targetExt
+                );
+
+                // ФІКС: Перевизначаємо тип контенту на потік байтів, 
+                // щоб браузер не відкривав картинку, а скачував її
+                const forcedBlob = new Blob([blob], { type: 'application/octet-stream' });
+                saveAs(forcedBlob, newName);
+
+                // затримка щоб браузер не блокував масове завантаження
+                await new Promise(resolve =>
+                    setTimeout(resolve, 250)
+                );
+            }
         }
 
-        const zipBlob = await zip.generateAsync({ type: "blob" });
-        saveAs(zipBlob, "converted_images.zip");
-
     } catch (err) {
-        console.error("ZIP ERROR:", err);
-        alert("Conversion failed. Check console.");
+        console.error(err);
+        alert("Conversion failed");
     } finally {
         convertBtn.disabled = false;
-        convertBtn.textContent = "Convert & Download ZIP";
+        // Повертаємо правильний текст на кнопку
+        convertBtn.textContent = getDownloadMode() === 'zip' ? "Convert & Download ZIP" : "Convert & Download Files";
     }
 });
-
 
 // =======================
 // РЕЖИМИ ІМЕН ФАЙЛІВ
@@ -430,6 +502,11 @@ convertBtn.addEventListener('click', async () => {
 function getFileNameMode() {
     const el = document.querySelector('input[name="filenameMode"]:checked');
     return el ? el.value : 'random';
+}
+	
+	function getDownloadMode() {
+    const el = document.querySelector('input[name="downloadMode"]:checked');
+    return el ? el.value : 'zip';
 }
 
 function generateFileName(file, index, batchId, mode, ext) {

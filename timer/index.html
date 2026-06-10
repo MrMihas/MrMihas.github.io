@@ -542,7 +542,26 @@ function randomString(len = 8) {
 
 
 // =======================
-// UNIVERSAL CONVERT ENGINE
+// ОБРОБКА ФАЙЛІВ (Оновлено для iOS)
+// =======================
+function setFiles(selectedFiles) {
+    // Розширюємо фільтр, бо iOS іноді віддає файли без чіткого MIME-типу, але з правильним розширенням
+    files = Array.from(selectedFiles).filter(file => {
+        const ext = file.name.split('.').pop().toLowerCase();
+        return ['image/jpeg', 'image/png', 'image/jpg', 'image/webp', 'heic'].includes(file.type.split('/')[1]) || 
+               ['jpg', 'jpeg', 'png', 'webp', 'heic'].includes(ext);
+    });
+
+    if (!files.length) {
+        alert("Будь ласка, виберіть коректні зображення (JPG, PNG, WebP)");
+        return;
+    }
+
+    renderPreview(files);
+}
+
+// =======================
+// УНІВЕРСАЛЬНИЙ РУШІЙ КОНВЕРТАЦІЇ (Оптимізовано під iOS)
 // =======================
 function convertToFormat(file, mimeType, quality) {
     return new Promise((resolve) => {
@@ -553,18 +572,54 @@ function convertToFormat(file, mimeType, quality) {
             const canvas = document.createElement('canvas');
             const ctx = canvas.getContext('2d');
 
-            canvas.width = img.width;
-            canvas.height = img.height;
+            // Максимально допустима ширина/висота для мобільних браузерів (захист від вилітання Safari)
+            const MAX_WIDTH = 4096;
+            const MAX_HEIGHT = 4096;
+            let width = img.width;
+            let height = img.height;
+
+            // Пропорційно зменшуємо, якщо фото величезне
+            if (width > MAX_WIDTH || height > MAX_HEIGHT) {
+                if (width > height) {
+                    height *= MAX_WIDTH / width;
+                    width = MAX_WIDTH;
+                } else {
+                    width *= MAX_HEIGHT / height;
+                    height = MAX_HEIGHT;
+                }
+            }
+
+            canvas.width = width;
+            canvas.height = height;
 
             ctx.imageSmoothingEnabled = true;
             ctx.imageSmoothingQuality = "high";
+            ctx.drawImage(img, 0, 0, width, height);
 
-            ctx.drawImage(img, 0, 0);
-
-            canvas.toBlob((blob) => {
+            // Функція для фінального виклику toBlob
+            const handleBlob = (blob) => {
                 URL.revokeObjectURL(url);
                 resolve(blob);
-            }, mimeType, quality);
+            };
+
+            try {
+                // Спроба конвертації у цільовий формат
+                canvas.toBlob((blob) => {
+                    // Перевірка для iOS: якщо просили WebP, але Safari повернув PNG (не підтримує стиснення у WebP)
+                    if (mimeType === 'image/webp' && blob && blob.type === 'image/png') {
+                        // Фолбек: примусово тиснемо в JPEG, якщо WebP не вдався
+                        canvas.toBlob((fallbackBlob) => {
+                            handleBlob(fallbackBlob);
+                        }, 'image/jpeg', quality);
+                    } else {
+                        handleBlob(blob);
+                    }
+                }, mimeType, quality);
+            } catch (e) {
+                // Якщо Canvas заблоковано безпекою або виникла помилка
+                console.error("Canvas error:", e);
+                canvas.toBlob((blob) => handleBlob(blob), 'image/jpeg', 0.8);
+            }
         };
 
         img.onerror = () => {
